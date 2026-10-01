@@ -13,7 +13,7 @@ you already have.
 path_pilot/
 ├── data/        Knowledge base: careers, skill graph, resources, synonyms   ← Phase 1 ✅
 ├── ml/          From-scratch NLP + recommendation model                     ← Phase 2 ✅
-├── backend/     FastAPI app                                                 ← Phase 3
+├── backend/     FastAPI app                                                 ← Phase 3 ✅
 ├── frontend/    React app                                                   ← Phase 4
 └── mcp/         MCP server                                                  ← Phase 8
 ```
@@ -24,7 +24,7 @@ path_pilot/
 |---|---|---|
 | 1 | Data & skill graph | ✅ Done |
 | 2 | ML core (NLP, TF-IDF, softmax, roadmap builder) | ✅ Done |
-| 3 | FastAPI backend + MongoDB | ⏳ |
+| 3 | FastAPI backend + MongoDB | ✅ Done |
 | 4 | React frontend | ⏳ |
 | 5 | Progress tracking & feedback loop | ⏳ |
 | 6 | Deploy to Vercel | ⏳ |
@@ -116,3 +116,52 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 The hand-written set is small (3 queries per career), so treat it as a sanity check rather than a
 precise benchmark. Training data is synthetic. Once real users give 👍/👎 feedback (Phase 5), that
 data will be added and the model retrained.
+
+## Backend API (Phase 3)
+
+FastAPI app in `backend/app/`. It loads the trained model once at startup and serves it over HTTP.
+MongoDB stores **user accounts only**. Careers, skills and resources are read from `data/*.json`, so they
+always match the trained model.
+
+```
+backend/app/
+├── main.py      app setup: CORS, routers, loads the model at startup
+├── config.py    settings from environment variables / .env
+├── deps.py      shared pieces: the model, the user store, the logged-in user
+├── schemas.py   request/response shapes (validation + /docs)
+├── security.py  bcrypt password hashing + JWT login tokens
+├── db.py        user storage: MongoDB (real) or in-memory (tests)
+└── routes/
+    ├── recommend.py   POST /api/recommend, POST /api/roadmap
+    ├── catalog.py     GET  /api/careers, /api/careers/{id}, /api/skills
+    └── auth.py        POST /api/auth/register, /api/auth/login · GET /api/auth/me
+```
+
+| Method | Endpoint | What it does |
+|---|---|---|
+| GET | `/api/health` | Server and model status |
+| POST | `/api/recommend` | `{query, known_skills?, top_k?, min_match?}` → top careers with match %, reasons, what the NLP understood |
+| POST | `/api/roadmap` | `{career_id, known_skills, hours_per_week}` → ordered learning plan |
+| GET | `/api/careers` | All 15 careers (summary) |
+| GET | `/api/careers/{id}` | One career with its staged skills |
+| GET | `/api/skills` | All 135 skills (for the skill-chip picker) |
+| POST | `/api/auth/register` | Create an account → JWT token |
+| POST | `/api/auth/login` | Log in → JWT token |
+| GET | `/api/auth/me` | Current user (needs `Authorization: Bearer <token>`) |
+
+Without `MONGODB_URI`/`JWT_SECRET`, the recommendation and catalog endpoints still work and the
+account endpoints return 503.
+
+### Run it
+
+```bash
+.venv/bin/pip install -r requirements-dev.txt
+cp .env.example .env                     # then set JWT_SECRET (and MONGODB_URI if not local)
+.venv/bin/uvicorn backend.app.main:app --reload
+```
+
+Open **http://localhost:8000/api/docs** to try every endpoint in the browser.
+
+```bash
+.venv/bin/python -m pytest -q            # all 35 tests (ML + API)
+```

@@ -1,1 +1,8 @@
+# Runtime dependencies (installed by Vercel). Keep this list lean.
 numpy>=2.0
+fastapi>=0.115
+pydantic-settings>=2.4
+pymongo>=4.10
+bcrypt>=4.2
+pyjwt>=2.9
+email-validator>=2.2
