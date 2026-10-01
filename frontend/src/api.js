@@ -95,3 +95,23 @@ export const register = (email, name, password) =>
   api('/auth/register', { method: 'POST', body: { email, name, password } })
 export const login = (email, password) => api('/auth/login', { method: 'POST', body: { email, password } })
 export const me = () => api('/auth/me')
+
+// Saved roadmaps & progress (login required)
+export const listSavedRoadmaps = () => api('/roadmaps')
+export const getSavedRoadmap = (careerId) => api(`/roadmaps/${encodeURIComponent(careerId)}`)
+export const saveRoadmap = (careerId, knownSkills, hoursPerWeek) =>
+  api('/roadmaps', {
+    method: 'POST',
+    body: { career_id: careerId, known_skills: knownSkills, hours_per_week: hoursPerWeek },
+  })
+export const setSkillDone = (careerId, skillId, done) =>
+  api(`/roadmaps/${encodeURIComponent(careerId)}/skills/${encodeURIComponent(skillId)}`, {
+    method: 'PUT',
+    body: { done },
+  })
+export const deleteSavedRoadmap = (careerId) =>
+  api(`/roadmaps/${encodeURIComponent(careerId)}`, { method: 'DELETE' })
+
+// 👍/👎 on a recommendation (works logged in or not)
+export const sendFeedback = (query, careerId, rating, rank) =>
+  api('/feedback', { method: 'POST', body: { query, career_id: careerId, rating, rank } })

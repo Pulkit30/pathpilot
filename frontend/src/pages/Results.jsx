@@ -38,6 +38,7 @@ export default function Results() {
           key={key}
           data={data}
           skills={skills}
+          query={query}
           onUpdateSkills={(chips) => setParams({ q: query, known: chips.join(',') })}
         />
       )}
@@ -68,7 +69,7 @@ function AskAgain({ initial }) {
   )
 }
 
-function ResultsView({ data, skills, onUpdateSkills }) {
+function ResultsView({ data, skills, query, onUpdateSkills }) {
   const detected = data.parsed.known_skills
   const [chips, setChips] = useState(detected)
   const chipsChanged = chips.join(',') !== detected.join(',')
@@ -116,7 +117,7 @@ function ResultsView({ data, skills, onUpdateSkills }) {
               <Badge className={CONFIDENCE_STYLE[data.confidence]}>{data.confidence} confidence</Badge>
             </div>
             {data.recommendations.map((rec, i) => (
-              <CareerCard key={rec.career_id} rec={rec} rank={i + 1} knownSkills={detected} />
+              <CareerCard key={rec.career_id} rec={rec} rank={i + 1} knownSkills={detected} query={query} />
             ))}
             {data.recommendations.length === 1 && (
               <p className="text-sm text-slate-500">

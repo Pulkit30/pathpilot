@@ -8,6 +8,7 @@ from ml.kb import DATA_DIR
 
 PROFILES_PATH = DATA_DIR / "training_profiles.json"
 EVAL_PATH = DATA_DIR / "eval_queries.json"
+FEEDBACK_PROFILES_PATH = DATA_DIR / "feedback_profiles.json"   # written by ml/retrain.py
 SPLIT_SEED = 7
 
 
@@ -24,6 +25,14 @@ def load_profiles():
 def load_eval_queries():
     with open(EVAL_PATH, encoding="utf-8") as f:
         return json.load(f)["queries"]
+
+
+def load_feedback_profiles():
+    """Training examples built from real user 👍 feedback (empty until ml/retrain.py has run)."""
+    if not FEEDBACK_PROFILES_PATH.exists():
+        return []
+    with open(FEEDBACK_PROFILES_PATH, encoding="utf-8") as f:
+        return json.load(f)["profiles"]
 
 
 def stratified_split(labels, fractions=(0.7, 0.15, 0.15), seed=SPLIT_SEED):

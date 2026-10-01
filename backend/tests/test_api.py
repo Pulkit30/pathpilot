@@ -11,8 +11,8 @@ from pymongo.errors import PyMongoError
 
 from backend.app import db as db_module
 from backend.app.config import Settings, get_settings
-from backend.app.db import InMemoryUserStore
-from backend.app.deps import get_user_store
+from backend.app.db import InMemoryStore
+from backend.app.deps import get_store_or_none
 from backend.app.main import app
 
 TEST_SETTINGS = Settings(_env_file=None, jwt_secret="test-secret-" + "x" * 32, mongodb_uri="")
@@ -20,9 +20,9 @@ TEST_SETTINGS = Settings(_env_file=None, jwt_secret="test-secret-" + "x" * 32, m
 
 @pytest.fixture
 def client():
-    store = InMemoryUserStore()
+    store = InMemoryStore()
     app.dependency_overrides[get_settings] = lambda: TEST_SETTINGS
-    app.dependency_overrides[get_user_store] = lambda: store
+    app.dependency_overrides[get_store_or_none] = lambda: store
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()

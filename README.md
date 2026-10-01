@@ -26,7 +26,7 @@ path_pilot/
 | 2 | ML core (NLP, TF-IDF, softmax, roadmap builder) | ✅ Done |
 | 3 | FastAPI backend + MongoDB | ✅ Done |
 | 4 | React frontend | ✅ Done |
-| 5 | Progress tracking & feedback loop | ⏳ |
+| 5 | Progress tracking & feedback loop | ✅ Done |
 | 6 | Deploy to Vercel | ⏳ |
 | 7 | RAG "AI Mentor" chat | ⏳ |
 | 8 | MCP server | ⏳ |
@@ -120,7 +120,7 @@ data will be added and the model retrained.
 ## Backend API (Phase 3)
 
 FastAPI app in `backend/app/`. It loads the trained model once at startup and serves it over HTTP.
-MongoDB stores **user accounts only**. Careers, skills and resources are read from `data/*.json`, so they
+MongoDB stores **users, saved roadmaps and feedback**. Careers, skills and resources are read from `data/*.json`, so they
 always match the trained model.
 
 ```
@@ -130,11 +130,13 @@ backend/app/
 ├── deps.py      shared pieces: the model, the user store, the logged-in user
 ├── schemas.py   request/response shapes (validation + /docs)
 ├── security.py  bcrypt password hashing + JWT login tokens
-├── db.py        user storage: MongoDB (real) or in-memory (tests)
+├── db.py        storage for users, saved roadmaps, feedback: MongoDB (real) or in-memory (tests)
 └── routes/
     ├── recommend.py   POST /api/recommend, POST /api/roadmap
     ├── catalog.py     GET  /api/careers, /api/careers/{id}, /api/skills
-    └── auth.py        POST /api/auth/register, /api/auth/login · GET /api/auth/me
+    ├── auth.py        POST /api/auth/register, /api/auth/login · GET /api/auth/me
+    ├── progress.py    /api/roadmaps: save, list, mark steps done, delete (login required)
+    └── feedback.py    POST /api/feedback
 ```
 
 | Method | Endpoint | What it does |
@@ -148,6 +150,12 @@ backend/app/
 | POST | `/api/auth/register` | Create an account → JWT token |
 | POST | `/api/auth/login` | Log in → JWT token |
 | GET | `/api/auth/me` | Current user (needs `Authorization: Bearer <token>`) |
+| GET | `/api/roadmaps` | 🔒 My saved roadmaps with progress |
+| POST | `/api/roadmaps` | 🔒 Save a roadmap (or update its known skills / weekly hours) |
+| GET | `/api/roadmaps/{career_id}` | 🔒 One saved roadmap with its plan and completed skills |
+| PUT | `/api/roadmaps/{career_id}/skills/{skill_id}` | 🔒 `{done: true/false}`: mark a step done or not |
+| DELETE | `/api/roadmaps/{career_id}` | 🔒 Remove a saved roadmap |
+| POST | `/api/feedback` | 👍/👎 on a recommendation (`rating` 1 or -1); works logged in or not |
 
 Without `MONGODB_URI`/`JWT_SECRET`, the recommendation and catalog endpoints still work and the
 account endpoints return 503.
@@ -163,7 +171,7 @@ cp .env.example .env                     # then set JWT_SECRET (and MONGODB_URI 
 Open **http://localhost:8000/api/docs** to try every endpoint in the browser.
 
 ```bash
-.venv/bin/python -m pytest -q            # all 35 tests (ML + API)
+.venv/bin/python -m pytest -q            # all tests (ML + API)
 ```
 
 ## Frontend (Phase 4)
@@ -180,6 +188,7 @@ so the browser talks to one origin, the same as production on Vercel.
 | Careers | `/careers` | All 15 careers, filterable by category |
 | Career | `/careers/:careerId` | Staged skills; pick skills you know, then build your roadmap |
 | Log in / Sign up | `/login`, `/register` | Accounts (JWT stored in the browser) |
+| My roadmaps | `/my-roadmaps` | 🔒 Saved roadmaps with progress bars; continue or remove |
 
 ```
 frontend/src/
@@ -201,3 +210,32 @@ cd frontend && npm install && npm run dev
 ```
 
 Open **http://localhost:5173**.
+
+## Progress & feedback loop (Phase 5)
+
+- **Save a roadmap** from the roadmap page (login required). Then tick steps as done in the list view
+  or in the skill panel. Progress, hours left and weeks left update instantly, and everything is listed
+  under **My roadmaps**.
+- **👍/👎** under each recommended career is stored in MongoDB (`feedback` collection) together with
+  the model version that made the recommendation.
+
+### Retraining with feedback
+
+```
+👍 in the app ─► MongoDB feedback ─► ml/retrain.py ─► data/feedback_profiles.json + new model ─► commit ─► deploy
+```
+
+```bash
+.venv/bin/python -m ml.retrain --dry-run   # see what would change, save nothing
+.venv/bin/python -m ml.retrain             # retrain and save only if the quality gate passes
+```
+
+- A 👍 turns (question, career) into a new training example, weighted 3× a synthetic one. A 👎 is
+  kept for analysis but isn't a label, because it says which career is wrong, not which is right.
+- Duplicates are removed, each user contributes at most 20 examples, and questions identical to the
+  hand-written test set are skipped so the test stays honest.
+- Feedback examples go into the **training split only**, so test scores stay comparable.
+- **Quality gate:** the new model is saved only if hand-written top-1 doesn't drop and synthetic
+  top-1 drops by at most 1 point (`--force` overrides).
+- `python -m ml.train` always includes `data/feedback_profiles.json` if it exists, so retraining from
+  scratch keeps what users taught it.

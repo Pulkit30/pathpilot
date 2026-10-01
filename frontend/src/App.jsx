@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router'
 import Navbar from './components/Navbar.jsx'
+import RequireAuth from './components/RequireAuth.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import CareerDetail from './pages/CareerDetail.jsx'
 import Careers from './pages/Careers.jsx'
 import Home from './pages/Home.jsx'
+import MyRoadmaps from './pages/MyRoadmaps.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Results from './pages/Results.jsx'
 import Roadmap from './pages/Roadmap.jsx'
@@ -18,6 +20,14 @@ export default function App() {
         <Route path="/roadmap/:careerId" element={<Roadmap />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/careers/:careerId" element={<CareerDetail />} />
+        <Route
+          path="/my-roadmaps"
+          element={
+            <RequireAuth>
+              <MyRoadmaps />
+            </RequireAuth>
+          }
+        />
         <Route path="/login" element={<AuthPage mode="login" />} />
         <Route path="/register" element={<AuthPage mode="register" />} />
         <Route path="*" element={<NotFound />} />

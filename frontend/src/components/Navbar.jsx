@@ -22,6 +22,11 @@ export default function Navbar() {
         <NavLink to="/careers" className={linkClass}>
           Careers
         </NavLink>
+        {user && (
+          <NavLink to="/my-roadmaps" className={linkClass}>
+            My roadmaps
+          </NavLink>
+        )}
 
         <div className="ml-auto flex items-center gap-2">
           {user ? (

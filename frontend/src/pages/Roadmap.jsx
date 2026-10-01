@@ -1,6 +1,7 @@
-import { lazy, Suspense, useState } from 'react'
-import { Link, useParams, useSearchParams } from 'react-router'
-import { getRoadmap } from '../api.js'
+import { lazy, Suspense, useMemo, useState } from 'react'
+import { Link, useLocation, useParams, useSearchParams } from 'react-router'
+import { getRoadmap, getSavedRoadmap, saveRoadmap, setSkillDone } from '../api.js'
+import { useAuth } from '../auth.jsx'
 import SkillDrawer from '../components/SkillDrawer.jsx'
 import { Badge, ErrorMessage, Page, Spinner, StageBadge } from '../components/ui.jsx'
 import { STAGE_STYLE, STAGES } from '../constants.js'
@@ -10,6 +11,7 @@ import { splitList, useAsync, useSkills } from '../hooks.js'
 const RoadmapGraph = lazy(() => import('../components/RoadmapGraph.jsx'))
 
 const HOUR_OPTIONS = [5, 10, 15, 20, 30]
+const sameSet = (a, b) => a.length === b.length && a.every((x) => b.includes(x))
 
 export default function Roadmap() {
   const { careerId } = useParams()
@@ -17,16 +19,24 @@ export default function Roadmap() {
   const known = splitList(params.get('known'))
   const hours = Number(params.get('hours')) || 10
   const [view, setView] = useState(() => (window.innerWidth < 768 ? 'list' : 'graph'))
-  const [selected, setSelected] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
   const skills = useSkills()
+  const { user } = useAuth()
 
   const { data, error, loading } = useAsync(() => getRoadmap(careerId, known, hours), `${careerId}|${known.join(',')}|${hours}`)
+  const saved = useSavedRoadmap(careerId, user)
+
+  // Progress is tracked only when this page shows the same plan that was saved (same known skills).
+  const tracking = Boolean(saved.value && sameSet(saved.value.known_skills, known))
+  const completed = useMemo(() => new Set(tracking ? saved.value.completed_skills : []), [tracking, saved.value])
 
   const setHours = (h) => {
     const next = new URLSearchParams(params)
     next.set('hours', h)
     setParams(next, { replace: true })
   }
+
+  const selected = data?.steps.find((s) => s.skill_id === selectedId) || null
 
   return (
     <Page>
@@ -44,18 +54,30 @@ export default function Roadmap() {
             <div>
               <p className="text-sm font-medium text-brand-600">Your roadmap</p>
               <h1 className="text-3xl font-extrabold text-slate-900">{data.career_name}</h1>
+              <Link to={`/careers/${careerId}`} className="text-sm font-medium text-brand-600 hover:underline">
+                About this career →
+              </Link>
             </div>
-            <Link to={`/careers/${careerId}`} className="text-sm font-medium text-brand-600 hover:underline">
-              About this career →
-            </Link>
+            <SaveButton saved={saved} user={user} known={known} hours={hours} />
           </header>
 
-          <section className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat label="Skills to learn" value={data.steps.length} />
-            <Stat label="Total time" value={`~${data.total_hours} hrs`} />
-            <Stat label="At your pace" value={data.est_weeks ? `~${data.est_weeks} weeks` : '—'} />
-            <Stat label="Already done" value={`${Math.round(data.progress * 100)}%`} />
-          </section>
+          {saved.error && (
+            <div className="mt-4">
+              <ErrorMessage error={saved.error} />
+            </div>
+          )}
+          {saved.value && !tracking && (
+            <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+              This plan uses different known skills from the one you saved. Click <b>Update saved roadmap</b> to track
+              progress here, or open it from{' '}
+              <Link to="/my-roadmaps" className="font-medium underline">
+                My roadmaps
+              </Link>
+              .
+            </p>
+          )}
+
+          <Stats data={data} completed={completed} hours={hours} tracking={tracking} />
 
           <section className="mt-4 flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
             <label htmlFor="hours" className="text-sm font-medium text-slate-700">
@@ -115,11 +137,19 @@ export default function Roadmap() {
               </div>
             ) : view === 'graph' ? (
               <Suspense fallback={<Spinner label="Drawing the graph…" />}>
-                <p className="mb-2 text-xs text-slate-500">Arrows point from a skill to what it unlocks. Click any skill for details and resources.</p>
-                <RoadmapGraph steps={data.steps} selectedId={selected?.skill_id} onSelect={setSelected} />
+                <p className="mb-2 text-xs text-slate-500">
+                  Arrows point from a skill to what it unlocks. Click any skill for details
+                  {tracking ? ' and to mark it done.' : ' and resources.'}
+                </p>
+                <RoadmapGraph steps={data.steps} selectedId={selectedId} onSelect={(s) => setSelectedId(s.skill_id)} completed={completed} />
               </Suspense>
             ) : (
-              <RoadmapList steps={data.steps} onSelect={setSelected} />
+              <RoadmapList
+                steps={data.steps}
+                onSelect={(s) => setSelectedId(s.skill_id)}
+                completed={completed}
+                onToggleDone={tracking ? saved.toggle : null}
+              />
             )}
           </div>
 
@@ -134,10 +164,118 @@ export default function Roadmap() {
             </section>
           )}
 
-          <SkillDrawer step={selected} skillNames={skills.byId} onClose={() => setSelected(null)} />
+          <SkillDrawer
+            step={selected}
+            skillNames={skills.byId}
+            onClose={() => setSelectedId(null)}
+            done={selected ? completed.has(selected.skill_id) : false}
+            onToggleDone={tracking ? saved.toggle : null}
+          />
         </>
       )}
     </Page>
+  )
+}
+
+/**
+ * The user's saved copy of this roadmap: {value (null = not saved), loading, error, busy, save(), toggle()}.
+ * Local edits (save / mark done) replace the fetched value until the page changes.
+ */
+function useSavedRoadmap(careerId, user) {
+  const key = `${careerId}|${user?.id ?? ''}`
+  const fetched = useAsync(
+    () => (user ? getSavedRoadmap(careerId).catch((e) => (e.status === 404 ? null : Promise.reject(e))) : Promise.resolve(null)),
+    key,
+  )
+  const [local, setLocal] = useState({ key: null, value: null, error: null })
+  const [busy, setBusy] = useState(false)
+  const isLocal = local.key === key
+  const value = isLocal ? local.value : fetched.data
+
+  const run = async (request, optimistic) => {
+    if (optimistic) setLocal({ key, value: optimistic, error: null }) // update the screen right away
+    setBusy(true)
+    try {
+      setLocal({ key, value: await request(), error: null })
+    } catch (error) {
+      setLocal({ key, value, error }) // roll back the optimistic change
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return {
+    value,
+    loading: fetched.loading,
+    error: (isLocal ? local.error : null) || fetched.error,
+    busy,
+    save: (known, hours) => run(() => saveRoadmap(careerId, known, hours)),
+    toggle: (skillId, done) => {
+      const completed = done ? [...value.completed_skills, skillId] : value.completed_skills.filter((s) => s !== skillId)
+      run(() => setSkillDone(careerId, skillId, done), { ...value, completed_skills: completed })
+    },
+  }
+}
+
+function SaveButton({ saved, user, known, hours }) {
+  const location = useLocation()
+  if (!user) {
+    return (
+      <Link
+        to="/login"
+        state={{ from: location.pathname + location.search }}
+        className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+      >
+        Log in to save &amp; track progress
+      </Link>
+    )
+  }
+  if (saved.loading) return null
+  const v = saved.value
+  if (v && sameSet(v.known_skills, known) && v.hours_per_week === hours) {
+    return (
+      <Link to="/my-roadmaps" className="rounded-xl border border-green-300 bg-green-50 px-4 py-2 text-sm font-semibold text-green-700">
+        ✓ Saved · My roadmaps
+      </Link>
+    )
+  }
+  return (
+    <button
+      onClick={() => saved.save(known, hours)}
+      disabled={saved.busy}
+      className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
+    >
+      {saved.busy ? 'Saving…' : v ? 'Update saved roadmap' : 'Save roadmap'}
+    </button>
+  )
+}
+
+function Stats({ data, completed, hours, tracking }) {
+  const doneSteps = data.steps.filter((s) => completed.has(s.skill_id))
+  const hoursLeft = data.total_hours - doneSteps.reduce((t, s) => t + s.est_hours, 0)
+  const required = data.already_known.length + data.steps.length
+  const overall = required ? (data.already_known.length + doneSteps.length) / required : 1
+
+  return (
+    <section className="mt-6 space-y-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat label={tracking ? 'Steps done' : 'Skills to learn'} value={tracking ? `${doneSteps.length} / ${data.steps.length}` : data.steps.length} />
+        <Stat label={tracking ? 'Time left' : 'Total time'} value={`~${hoursLeft} hrs`} />
+        <Stat label="At your pace" value={`~${Math.ceil(hoursLeft / hours)} weeks`} />
+        <Stat label="Career progress" value={`${Math.round(overall * 100)}%`} />
+      </div>
+      {tracking && (
+        <div
+          className="h-3 overflow-hidden rounded-full bg-slate-200"
+          role="progressbar"
+          aria-valuenow={Math.round(overall * 100)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div className="h-full rounded-full bg-green-500 transition-all" style={{ width: `${overall * 100}%` }} />
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -150,7 +288,7 @@ function Stat({ label, value }) {
   )
 }
 
-function RoadmapList({ steps, onSelect }) {
+function RoadmapList({ steps, onSelect, completed, onToggleDone }) {
   return (
     <div className="space-y-6">
       {STAGES.map((stage) => {
@@ -165,23 +303,38 @@ function RoadmapList({ steps, onSelect }) {
               </span>
             </div>
             <ol className="space-y-2">
-              {stageSteps.map((s) => (
-                <li key={s.skill_id}>
-                  <button
-                    onClick={() => onSelect(s)}
-                    className="flex w-full items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-brand-300 hover:shadow-sm"
+              {stageSteps.map((s) => {
+                const done = completed.has(s.skill_id)
+                return (
+                  <li
+                    key={s.skill_id}
+                    className={`flex items-center gap-3 rounded-xl border p-4 transition ${
+                      done ? 'border-green-200 bg-green-50' : 'border-slate-200 bg-white hover:border-brand-300'
+                    }`}
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-bold text-slate-600">
-                      {s.step}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-semibold text-slate-900">{s.name}</span>
-                      <span className="block truncate text-sm text-slate-500">{s.description}</span>
-                    </span>
-                    <span className="shrink-0 text-sm text-slate-500">~{s.est_hours}h</span>
-                  </button>
-                </li>
-              ))}
+                    {onToggleDone ? (
+                      <input
+                        type="checkbox"
+                        checked={done}
+                        onChange={(e) => onToggleDone(s.skill_id, e.target.checked)}
+                        aria-label={`Mark ${s.name} as done`}
+                        className="h-5 w-5 shrink-0 accent-green-600"
+                      />
+                    ) : (
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-bold text-slate-600">
+                        {s.step}
+                      </span>
+                    )}
+                    <button onClick={() => onSelect(s)} className="flex min-w-0 flex-1 items-center gap-4 text-left">
+                      <span className="min-w-0 flex-1">
+                        <span className={`block font-semibold ${done ? 'text-slate-500 line-through' : 'text-slate-900'}`}>{s.name}</span>
+                        <span className="block truncate text-sm text-slate-500">{s.description}</span>
+                      </span>
+                      <span className="shrink-0 text-sm text-slate-500">~{s.est_hours}h</span>
+                    </button>
+                  </li>
+                )
+              })}
             </ol>
           </section>
         )

@@ -29,6 +29,7 @@ class Recommender:
         self.classes = list(classes)
         self.alpha = alpha
         self.temperature = temperature
+        self.trained_at = None  # set by load(); identifies the model version
         docs = [career_document(self.kb.careers[c], self.kb) for c in self.classes]
         self.career_matrix = vectorizer.transform(docs)
 
@@ -39,7 +40,9 @@ class Recommender:
             meta = json.load(f)
         vectorizer = TfidfVectorizer.load(artifacts_dir / "tfidf.npz", artifacts_dir / "vocab.json")
         classifier = SoftmaxClassifier.load(artifacts_dir / "model.npz")
-        return cls(vectorizer, classifier, meta["classes"], meta["alpha"], meta["temperature"])
+        rec = cls(vectorizer, classifier, meta["classes"], meta["alpha"], meta["temperature"])
+        rec.trained_at = meta.get("trained_at")
+        return rec
 
     # ------------------------------------------------------------- scoring ----
 

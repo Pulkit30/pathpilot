@@ -4,7 +4,7 @@ import { Badge, StageBadge } from './ui.jsx'
 const TYPE_ICON = { docs: '📄', course: '🎓', tutorial: '🛠️', book: '📘', practice: '🏋️', article: '📰', video: '🎬' }
 
 /** Slide-over panel with everything about one roadmap step. */
-export default function SkillDrawer({ step, skillNames, onClose }) {
+export default function SkillDrawer({ step, skillNames, onClose, done, onToggleDone }) {
   useEffect(() => {
     if (!step) return
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -38,6 +38,17 @@ export default function SkillDrawer({ step, skillNames, onClose }) {
         </div>
 
         <p className="mt-5 text-slate-700">{step.description}</p>
+
+        {onToggleDone && (
+          <button
+            onClick={() => onToggleDone(step.skill_id, !done)}
+            className={`mt-5 w-full rounded-xl px-4 py-2.5 font-semibold transition ${
+              done ? 'border border-green-300 bg-green-50 text-green-700 hover:bg-green-100' : 'bg-brand-600 text-white hover:bg-brand-700'
+            }`}
+          >
+            {done ? '✓ Done (click to undo)' : 'Mark as done'}
+          </button>
+        )}
 
         {step.prereqs.length > 0 && (
           <div className="mt-5">

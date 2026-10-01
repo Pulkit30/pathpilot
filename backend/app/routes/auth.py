@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from backend.app.config import Settings, get_settings
 from backend.app.db import EmailTakenError
-from backend.app.deps import get_current_user, get_user_store
+from backend.app.deps import get_current_user, get_store
 from backend.app.schemas import LoginRequest, RegisterRequest, TokenResponse, UserOut
 from backend.app.security import create_token, hash_password, verify_password
 
@@ -16,7 +16,7 @@ def _public(user):
 
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
-async def register(body: RegisterRequest, store=Depends(get_user_store),
+async def register(body: RegisterRequest, store=Depends(get_store),
                    settings: Settings = Depends(get_settings)):
     try:
         user = await store.create_user(body.email.lower(), body.name.strip(), hash_password(body.password))
@@ -26,8 +26,8 @@ async def register(body: RegisterRequest, store=Depends(get_user_store),
 
 
 @router.post("/login", response_model=TokenResponse)
-async def login(body: LoginRequest, store=Depends(get_user_store), settings: Settings = Depends(get_settings)):
-    user = await store.get_by_email(body.email.lower())
+async def login(body: LoginRequest, store=Depends(get_store), settings: Settings = Depends(get_settings)):
+    user = await store.get_user_by_email(body.email.lower())
     # Same message for "no such user" and "wrong password" so emails can't be probed.
     if user is None or not verify_password(body.password, user["password_hash"]):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Incorrect email or password")

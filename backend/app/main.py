@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import get_settings
 from backend.app.db import close_mongo
 from backend.app.deps import get_recommender
-from backend.app.routes import auth, catalog, recommend
+from backend.app.routes import auth, catalog, feedback, progress, recommend
 
 API_PREFIX = "/api"  # frontend and API share one domain on Vercel: /api/* goes to FastAPI
 
@@ -30,7 +30,7 @@ def create_app():
         title="PathPilot API",
         description="Career recommendations and personalised learning roadmaps, "
                     "powered by a from-scratch NumPy model.",
-        version="0.3.0",
+        version="0.5.0",
         lifespan=lifespan,
         docs_url=f"{API_PREFIX}/docs",
         openapi_url=f"{API_PREFIX}/openapi.json",
@@ -45,9 +45,9 @@ def create_app():
     @app.get(f"{API_PREFIX}/health", tags=["meta"])
     def health():
         meta = get_recommender()
-        return {"status": "ok", "model": {"careers": len(meta.classes), "alpha": meta.alpha}}
+        return {"status": "ok", "model": {"careers": len(meta.classes), "alpha": meta.alpha, "trained_at": meta.trained_at}}
 
-    for module in (recommend, catalog, auth):
+    for module in (recommend, catalog, auth, progress, feedback):
         app.include_router(module.router, prefix=API_PREFIX)
     return app
 

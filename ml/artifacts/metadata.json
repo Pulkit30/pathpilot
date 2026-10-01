@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "trained_at": "2026-10-01T08:22:37+00:00",
+  "trained_at": "2026-10-01T11:48:48+00:00",
   "classes": [
     "frontend_developer",
     "backend_developer",
@@ -31,7 +31,8 @@
   "n_profiles": {
     "train": 1680,
     "val": 360,
-    "test": 360
+    "test": 360,
+    "from_feedback": 0
   },
   "vocab_size": 600,
   "final_epoch": {

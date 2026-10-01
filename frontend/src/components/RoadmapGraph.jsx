@@ -11,7 +11,7 @@ const ROW_HEIGHT = 92
  * deepest prerequisite. Steps arrive already topologically sorted, so prerequisites are
  * always placed before the skills that need them.
  */
-function layout(steps, selectedId) {
+function layout(steps, selectedId, completed) {
   const inPlan = new Set(steps.map((s) => s.skill_id))
   const column = {}
   const rowsUsed = {}
@@ -24,7 +24,7 @@ function layout(steps, selectedId) {
       id: s.skill_id,
       type: 'skill',
       position: { x: col * COLUMN_WIDTH, y: row * ROW_HEIGHT },
-      data: { step: s, selected: s.skill_id === selectedId },
+      data: { step: s, selected: s.skill_id === selectedId, done: completed.has(s.skill_id) },
     }
   })
   const edges = steps.flatMap((s) =>
@@ -42,21 +42,22 @@ function layout(steps, selectedId) {
 }
 
 function SkillNode({ data }) {
-  const { step, selected } = data
+  const { step, selected, done } = data
   const stage = STAGE_STYLE[step.stage]
   return (
     <div
-      className={`w-52 cursor-pointer rounded-xl border-2 bg-white px-3 py-2 shadow-sm transition hover:shadow-md ${
-        selected ? 'border-brand-600 ring-2 ring-brand-200' : stage.border
-      }`}
+      className={`w-52 cursor-pointer rounded-xl border-2 px-3 py-2 shadow-sm transition hover:shadow-md ${
+        done ? 'bg-green-50' : 'bg-white'
+      } ${selected ? 'border-brand-600 ring-2 ring-brand-200' : done ? 'border-green-400' : stage.border}`}
     >
       <Handle type="target" position={Position.Left} className="!h-2 !w-2 !border-0 !bg-slate-400" />
       <div className="flex items-center gap-2">
         <span className={`h-2 w-2 shrink-0 rounded-full ${stage.dot}`} />
         <span className="text-[11px] font-medium text-slate-400">Step {step.step}</span>
+        {done && <span className="text-[11px] font-semibold text-green-600">✓ Done</span>}
         <span className="ml-auto text-[11px] text-slate-400">~{step.est_hours}h</span>
       </div>
-      <div className="mt-0.5 truncate text-sm font-semibold text-slate-800" title={step.name}>
+      <div className={`mt-0.5 truncate text-sm font-semibold ${done ? 'text-slate-500 line-through' : 'text-slate-800'}`} title={step.name}>
         {step.name}
       </div>
       <Handle type="source" position={Position.Right} className="!h-2 !w-2 !border-0 !bg-slate-400" />
@@ -66,8 +67,8 @@ function SkillNode({ data }) {
 
 const nodeTypes = { skill: SkillNode }
 
-export default function RoadmapGraph({ steps, selectedId, onSelect }) {
-  const { nodes, edges } = useMemo(() => layout(steps, selectedId), [steps, selectedId])
+export default function RoadmapGraph({ steps, selectedId, onSelect, completed = new Set() }) {
+  const { nodes, edges } = useMemo(() => layout(steps, selectedId, completed), [steps, selectedId, completed])
 
   return (
     <div className="h-[560px] overflow-hidden rounded-2xl border border-slate-200 bg-white">

@@ -1,5 +1,6 @@
 """Request and response shapes. FastAPI validates against these and shows them on /docs."""
 
+from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel, EmailStr, Field
@@ -155,3 +156,46 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserOut
+
+
+# --------------------------------------------------------- saved roadmaps ----
+
+class SaveRoadmapRequest(BaseModel):
+    career_id: str = Field(..., examples=["data_analyst"])
+    known_skills: list[str] = Field(default_factory=list, max_length=100)
+    hours_per_week: int = Field(10, ge=1, le=80)
+
+
+class SkillDoneRequest(BaseModel):
+    done: bool
+
+
+class SavedRoadmapSummary(BaseModel):
+    career_id: str
+    career_name: str
+    known_skills: list[str]
+    hours_per_week: int
+    steps_total: int
+    steps_done: int
+    progress: float = Field(description="Share of the career's required skills known or completed (0-1)")
+    hours_left: int
+    weeks_left: int
+    updated_at: datetime
+
+
+class SavedRoadmapDetail(SavedRoadmapSummary):
+    completed_skills: list[str]
+    roadmap: RoadmapResponse
+
+
+# --------------------------------------------------------------- feedback ----
+
+class FeedbackRequest(BaseModel):
+    query: str = Field(..., min_length=1, max_length=1000)
+    career_id: str
+    rating: Literal[1, -1] = Field(..., description="1 = good recommendation (👍), -1 = bad (👎)")
+    rank: int = Field(..., ge=1, le=15, description="Position of the career in the results")
+
+
+class FeedbackResponse(BaseModel):
+    id: str
