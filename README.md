@@ -27,7 +27,7 @@ path_pilot/
 | 3 | FastAPI backend + MongoDB | ✅ Done |
 | 4 | React frontend | ✅ Done |
 | 5 | Progress tracking & feedback loop | ✅ Done |
-| 6 | Deploy to Vercel | ⏳ |
+| 6 | Deploy to Vercel | 🚀 Config ready |
 | 7 | RAG "AI Mentor" chat | ⏳ |
 | 8 | MCP server | ⏳ |
 
@@ -239,3 +239,40 @@ Open **http://localhost:5173**.
   top-1 drops by at most 1 point (`--force` overrides).
 - `python -m ml.train` always includes `data/feedback_profiles.json` if it exists, so retraining from
   scratch keeps what users taught it.
+
+## Deployment (Phase 6): Vercel + MongoDB Atlas
+
+The whole app is **one Vercel project on one domain**. Vercel runs FastAPI natively; the React
+build is served by `app.frontend()` from Vercel's CDN; `/api/*` goes to the Python function.
+
+| File | Purpose |
+|---|---|
+| `pyproject.toml` | Runtime dependencies, `[tool.vercel] entrypoint = "backend.app.main:app"`, CDN serving for the frontend |
+| `.python-version` | Python 3.13 |
+| `vercel.json` | Build command (`npm ci && npm run build` in `frontend/`) and files left out of the function |
+| `backend/tests/test_deploy_config.py` | Keeps `requirements.txt` and `pyproject.toml` in sync and protects runtime files from exclusion |
+
+**Function size:** ~74 MB of packages plus <1 MB of code, data and model (limit: 500 MB).
+
+### Environment variables (Vercel → Project → Settings → Environment Variables)
+
+| Name | Value |
+|---|---|
+| `MONGODB_URI` | Atlas connection string (with the real password) |
+| `JWT_SECRET` | A long random string: `python3 -c "import secrets; print(secrets.token_urlsafe(48))"` |
+| `MONGODB_DB` | `pathpilot` (optional, this is the default) |
+
+Atlas **Network Access** must allow `0.0.0.0/0`, because Vercel functions don't have fixed IPs.
+
+### Production rehearsal on your laptop
+
+```bash
+cd frontend && npm ci && npm run build && cd ..
+.venv/bin/uvicorn backend.app.main:app --port 8001     # site + API together at http://localhost:8001
+rm -rf frontend/dist                                   # afterwards, so dev uses Vite again
+```
+
+### Updating the live site
+
+Push to GitHub and Vercel redeploys automatically. To ship a retrained model, run `ml.retrain`, commit
+`ml/artifacts/` and `data/feedback_profiles.json`, and push.

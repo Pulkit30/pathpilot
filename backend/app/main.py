@@ -5,6 +5,7 @@ Then open:    http://localhost:8000/docs
 """
 
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,6 +16,7 @@ from backend.app.deps import get_recommender
 from backend.app.routes import auth, catalog, feedback, progress, recommend
 
 API_PREFIX = "/api"  # frontend and API share one domain on Vercel: /api/* goes to FastAPI
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"  # built by `npm run build`
 
 
 @asynccontextmanager
@@ -49,6 +51,12 @@ def create_app():
 
     for module in (recommend, catalog, auth, progress, feedback):
         app.include_router(module.router, prefix=API_PREFIX)
+
+    # Serve the built React app for every non-API path. On Vercel these files are served from the
+    # CDN. "index.html" fallback lets deep links like /roadmap/data_analyst load the app, which then
+    # shows the right page. In local development (no build yet) Vite serves the frontend instead.
+    if FRONTEND_DIST.is_dir():
+        app.frontend("/", directory=FRONTEND_DIST, fallback="index.html")
     return app
 
 

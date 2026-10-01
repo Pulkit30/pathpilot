@@ -1,0 +1,25 @@
+[project]
+name = "pathpilot"
+version = "0.6.0"
+description = "Career recommendations and learning roadmaps from a from-scratch NumPy model"
+requires-python = ">=3.13"
+# Runtime dependencies installed on Vercel. Keep in sync with requirements.txt
+# (backend/tests/test_deploy_config.py checks this).
+dependencies = [
+    "numpy>=2.0",
+    "fastapi>=0.115",
+    "pydantic-settings>=2.4",
+    "pymongo>=4.10",
+    "bcrypt>=4.2",
+    "pyjwt>=2.9",
+    "email-validator>=2.2",
+]
+
+[tool.vercel]
+# Vercel loads the FastAPI `app` from backend/app/main.py
+entrypoint = "backend.app.main:app"
+
+[tool.vercel.fastapi.static]
+# Serve the built React app from the CDN even though the API uses CORS middleware
+# (the middleware only matters for API calls, not for static files).
+cdn = true
