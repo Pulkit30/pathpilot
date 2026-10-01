@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "trained_at": "2026-10-01T07:45:16+00:00",
+  "classes": [
+    "frontend_developer",
+    "backend_developer",
+    "full_stack_developer",
+    "data_analyst",
+    "data_scientist",
+    "ml_engineer",
+    "ai_engineer",
+    "devops_engineer",
+    "cloud_engineer",
+    "cybersecurity_analyst",
+    "mobile_developer",
+    "ui_ux_designer",
+    "game_developer",
+    "blockchain_developer",
+    "qa_engineer"
+  ],
+  "alpha": 0.5,
+  "temperature": 80.0,
+  "hyperparams": {
+    "min_df": 2,
+    "lr": 0.5,
+    "l2": 1e-05,
+    "epochs": 100,
+    "batch_size": 64,
+    "momentum": 0.9
+  },
+  "n_profiles": {
+    "train": 1680,
+    "val": 360,
+    "test": 360
+  },
+  "vocab_size": 600,
+  "final_epoch": {
+    "epoch": 100,
+    "train_loss": 0.035237398740365376,
+    "train_acc": 1.0,
+    "val_loss": 0.11127645219986763,
+    "val_acc": 0.975
+  },
+  "metrics": {
+    "synthetic_test": {
+      "n": 360,
+      "softmax_top1": 0.9417,
+      "softmax_top3": 0.9972,
+      "similarity_top1": 0.9389,
+      "similarity_top3": 0.9944,
+      "blended_top1": 0.9472,
+      "blended_top3": 1.0
+    },
+    "handwritten_eval": {
+      "n": 45,
+      "softmax_top1": 0.9556,
+      "softmax_top3": 0.9778,
+      "similarity_top1": 0.9778,
+      "similarity_top3": 1.0,
+      "blended_top1": 0.9778,
+      "blended_top3": 0.9778
+    }
+  }
+}

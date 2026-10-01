@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "_comment": "Hand-written realistic queries. NEVER used for training; only for honest evaluation.",
+  "queries": [
+    {"text": "I enjoy making websites look beautiful and I've done some HTML and CSS. What next?", "career": "frontend_developer"},
+    {"text": "I built a few React projects in college and want to get better at the visual side of web apps", "career": "frontend_developer"},
+    {"text": "I want to make interactive web pages that users click and see, I know a bit of javascript", "career": "frontend_developer"},
+
+    {"text": "I like working on the logic behind apps rather than the design, I know Python and some SQL", "career": "backend_developer"},
+    {"text": "I enjoy building APIs and designing databases, how do I go deeper into server side stuff?", "career": "backend_developer"},
+    {"text": "I'm good with Python and want to learn how servers, authentication and caching work", "career": "backend_developer"},
+
+    {"text": "I want to build complete web products by myself, both the UI and the server", "career": "full_stack_developer"},
+    {"text": "I know React and Node.js and want to work at a startup building end-to-end apps", "career": "full_stack_developer"},
+    {"text": "I like the MERN stack and want to handle both frontend and backend", "career": "full_stack_developer"},
+
+    {"text": "I'm a commerce student who likes numbers and excel, what career should I pursue?", "career": "data_analyst"},
+    {"text": "I enjoy making reports and finding business insights from spreadsheets", "career": "data_analyst"},
+    {"text": "I know SQL and Excel and want to create Power BI dashboards for my company", "career": "data_analyst"},
+
+    {"text": "I love statistics and research and want to build models that predict things from data", "career": "data_scientist"},
+    {"text": "Math graduate with Python knowledge, interested in finding patterns in data", "career": "data_scientist"},
+    {"text": "I know pandas and numpy and want to learn machine learning to make predictions", "career": "data_scientist"},
+
+    {"text": "I want to deploy machine learning models to production and build ML pipelines", "career": "ml_engineer"},
+    {"text": "Good at math and Python, I want to train deep learning models with PyTorch and ship them", "career": "ml_engineer"},
+    {"text": "Interested in MLOps, Docker and serving models at scale", "career": "ml_engineer"},
+
+    {"text": "I want to build chatbots using LLMs like ChatGPT and Claude", "career": "ai_engineer"},
+    {"text": "Curious about RAG, vector databases and AI agents", "career": "ai_engineer"},
+    {"text": "I know Python and want to work on generative AI applications with prompt engineering", "career": "ai_engineer"},
+
+    {"text": "I love automating things on Linux servers and writing bash scripts", "career": "devops_engineer"},
+    {"text": "I want to learn Docker, Kubernetes and CI/CD pipelines to make deployments reliable", "career": "devops_engineer"},
+    {"text": "I enjoy keeping systems up and running, monitoring and infrastructure automation", "career": "devops_engineer"},
+
+    {"text": "I want to work with AWS and design scalable cloud infrastructure", "career": "cloud_engineer"},
+    {"text": "Interested in cloud computing, I know some networking and Linux", "career": "cloud_engineer"},
+    {"text": "I want to get AWS certified and learn serverless and Terraform", "career": "cloud_engineer"},
+
+    {"text": "I'm fascinated by hacking and want to protect companies from cyber attacks", "career": "cybersecurity_analyst"},
+    {"text": "I know networking and Linux and I'm interested in security and privacy", "career": "cybersecurity_analyst"},
+    {"text": "I want to do penetration testing and ethical hacking, I've played CTFs on TryHackMe", "career": "cybersecurity_analyst"},
+
+    {"text": "I want to make Android and iOS apps for phones", "career": "mobile_developer"},
+    {"text": "I've built a small Flutter app and want to publish it on the Play Store", "career": "mobile_developer"},
+    {"text": "I love smartphone apps and want to create my own using Dart", "career": "mobile_developer"},
+
+    {"text": "I like drawing and designing, and I care about how people feel when using an app", "career": "ui_ux_designer"},
+    {"text": "I use Figma to make wireframes and prototypes, want to improve my design skills", "career": "ui_ux_designer"},
+    {"text": "I'm interested in user psychology, colors and typography", "career": "ui_ux_designer"},
+
+    {"text": "I love playing video games and want to make my own", "career": "game_developer"},
+    {"text": "I know C# and want to build 3D games in Unity", "career": "game_developer"},
+    {"text": "Interested in game design, storytelling and graphics", "career": "game_developer"},
+
+    {"text": "I'm into crypto and bitcoin and want to build decentralized apps", "career": "blockchain_developer"},
+    {"text": "I know JavaScript and want to learn Solidity and smart contracts", "career": "blockchain_developer"},
+    {"text": "Interested in web3, DeFi and finance on the blockchain", "career": "blockchain_developer"},
+
+    {"text": "I'm very detail oriented and enjoy finding bugs in software", "career": "qa_engineer"},
+    {"text": "I want to automate testing with Selenium and Python", "career": "qa_engineer"},
+    {"text": "I like checking quality of apps and writing test cases, I know Postman", "career": "qa_engineer"}
+  ]
+}

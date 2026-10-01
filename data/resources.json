@@ -1,0 +1,549 @@
+{
+  "version": 1,
+  "_comment": "Free learning resources keyed by skill id. type: docs | course | tutorial | book | practice | article | video.",
+  "resources": {
+    "programming_basics": [
+      {"title": "CS50x: Introduction to Computer Science (Harvard)", "url": "https://cs50.harvard.edu/x/", "type": "course"},
+      {"title": "freeCodeCamp", "url": "https://www.freecodecamp.org/", "type": "practice"}
+    ],
+    "command_line": [
+      {"title": "The Missing Semester: Course Overview + the Shell (MIT)", "url": "https://missing.csail.mit.edu/2020/course-shell/", "type": "course"},
+      {"title": "The Linux Command Line for Beginners (Ubuntu)", "url": "https://ubuntu.com/tutorials/command-line-for-beginners", "type": "tutorial"}
+    ],
+    "git": [
+      {"title": "Pro Git Book", "url": "https://git-scm.com/book/en/v2", "type": "book"},
+      {"title": "GitHub Docs: Get Started", "url": "https://docs.github.com/en/get-started", "type": "docs"}
+    ],
+    "http": [
+      {"title": "MDN: An Overview of HTTP", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview", "type": "docs"},
+      {"title": "Cloudflare Learning Center", "url": "https://www.cloudflare.com/learning/", "type": "article"}
+    ],
+    "linux": [
+      {"title": "Linux Journey", "url": "https://linuxjourney.com/", "type": "tutorial"},
+      {"title": "OverTheWire: Bandit", "url": "https://overthewire.org/wargames/bandit/", "type": "practice"}
+    ],
+    "bash": [
+      {"title": "The Missing Semester: Shell Tools and Scripting (MIT)", "url": "https://missing.csail.mit.edu/2020/shell-tools/", "type": "course"},
+      {"title": "GNU Bash Reference Manual", "url": "https://www.gnu.org/software/bash/manual/", "type": "docs"}
+    ],
+    "networking": [
+      {"title": "Kurose & Ross: Computer Networking Video Lectures", "url": "https://gaia.cs.umass.edu/kurose_ross/online_lectures.htm", "type": "video"},
+      {"title": "Cloudflare Learning Center", "url": "https://www.cloudflare.com/learning/", "type": "article"}
+    ],
+    "html": [
+      {"title": "MDN: HTML", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML", "type": "docs"},
+      {"title": "web.dev: Learn HTML", "url": "https://web.dev/learn/html", "type": "course"}
+    ],
+    "css": [
+      {"title": "MDN: CSS", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS", "type": "docs"},
+      {"title": "web.dev: Learn CSS", "url": "https://web.dev/learn/css", "type": "course"}
+    ],
+    "javascript": [
+      {"title": "The Modern JavaScript Tutorial", "url": "https://javascript.info/", "type": "tutorial"},
+      {"title": "MDN: JavaScript", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript", "type": "docs"}
+    ],
+    "responsive_design": [
+      {"title": "web.dev: Learn Responsive Design", "url": "https://web.dev/learn/design", "type": "course"},
+      {"title": "MDN: Using Media Queries", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries", "type": "docs"}
+    ],
+    "dom": [
+      {"title": "MDN: Document Object Model", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model", "type": "docs"},
+      {"title": "javascript.info: Document", "url": "https://javascript.info/document", "type": "tutorial"}
+    ],
+    "web_apis": [
+      {"title": "MDN: Using the Fetch API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch", "type": "docs"},
+      {"title": "javascript.info: Fetch", "url": "https://javascript.info/fetch", "type": "tutorial"}
+    ],
+    "react": [
+      {"title": "React: Quick Start", "url": "https://react.dev/learn", "type": "docs"},
+      {"title": "React Tutorial: Tic-Tac-Toe", "url": "https://react.dev/learn/tutorial-tic-tac-toe", "type": "tutorial"}
+    ],
+    "tailwind": [
+      {"title": "Tailwind CSS Docs", "url": "https://tailwindcss.com/docs", "type": "docs"}
+    ],
+    "typescript": [
+      {"title": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "type": "docs"},
+      {"title": "TypeScript Playground", "url": "https://www.typescriptlang.org/play", "type": "practice"}
+    ],
+    "state_management": [
+      {"title": "React: Managing State", "url": "https://react.dev/learn/managing-state", "type": "docs"},
+      {"title": "Redux Essentials Tutorial", "url": "https://redux.js.org/tutorials/essentials/part-1-overview-concepts", "type": "tutorial"}
+    ],
+    "frontend_testing": [
+      {"title": "Jest: Getting Started", "url": "https://jestjs.io/docs/getting-started", "type": "docs"},
+      {"title": "React Testing Library", "url": "https://testing-library.com/docs/react-testing-library/intro/", "type": "docs"}
+    ],
+    "nextjs": [
+      {"title": "Learn Next.js", "url": "https://nextjs.org/learn", "type": "course"},
+      {"title": "Next.js Docs", "url": "https://nextjs.org/docs", "type": "docs"}
+    ],
+    "web_performance": [
+      {"title": "web.dev: Learn Performance", "url": "https://web.dev/learn/performance", "type": "course"},
+      {"title": "MDN: Web Performance", "url": "https://developer.mozilla.org/en-US/docs/Web/Performance", "type": "docs"}
+    ],
+    "deployment": [
+      {"title": "Vercel Docs", "url": "https://vercel.com/docs", "type": "docs"},
+      {"title": "GitHub Pages Docs", "url": "https://docs.github.com/en/pages", "type": "docs"}
+    ],
+    "python": [
+      {"title": "The Official Python Tutorial", "url": "https://docs.python.org/3/tutorial/", "type": "docs"},
+      {"title": "CS50's Introduction to Programming with Python", "url": "https://cs50.harvard.edu/python/", "type": "course"}
+    ],
+    "nodejs": [
+      {"title": "Learn Node.js", "url": "https://nodejs.org/en/learn", "type": "docs"},
+      {"title": "Express: Getting Started", "url": "https://expressjs.com/en/starter/installing.html", "type": "docs"}
+    ],
+    "rest_apis": [
+      {"title": "FastAPI Tutorial", "url": "https://fastapi.tiangolo.com/tutorial/", "type": "tutorial"},
+      {"title": "REST API Tutorial", "url": "https://restfulapi.net/", "type": "article"}
+    ],
+    "authentication": [
+      {"title": "Introduction to JSON Web Tokens", "url": "https://jwt.io/introduction", "type": "article"},
+      {"title": "OWASP Authentication Cheat Sheet", "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html", "type": "docs"}
+    ],
+    "sql": [
+      {"title": "SQLBolt: Interactive SQL Lessons", "url": "https://sqlbolt.com/", "type": "practice"},
+      {"title": "PostgreSQL Tutorial", "url": "https://www.postgresql.org/docs/current/tutorial.html", "type": "docs"}
+    ],
+    "mongodb": [
+      {"title": "MongoDB University", "url": "https://learn.mongodb.com/", "type": "course"},
+      {"title": "MongoDB Manual", "url": "https://www.mongodb.com/docs/manual/", "type": "docs"}
+    ],
+    "redis": [
+      {"title": "Redis Docs", "url": "https://redis.io/docs/latest/", "type": "docs"},
+      {"title": "Redis University", "url": "https://university.redis.io/", "type": "course"}
+    ],
+    "docker": [
+      {"title": "Docker: Get Started", "url": "https://docs.docker.com/get-started/", "type": "docs"},
+      {"title": "Docker Curriculum", "url": "https://docker-curriculum.com/", "type": "tutorial"}
+    ],
+    "backend_testing": [
+      {"title": "pytest: Get Started", "url": "https://docs.pytest.org/en/stable/getting-started.html", "type": "docs"},
+      {"title": "FastAPI: Testing", "url": "https://fastapi.tiangolo.com/tutorial/testing/", "type": "docs"}
+    ],
+    "system_design": [
+      {"title": "The System Design Primer", "url": "https://github.com/donnemartin/system-design-primer", "type": "book"},
+      {"title": "AWS Well-Architected Framework", "url": "https://aws.amazon.com/architecture/well-architected/", "type": "article"}
+    ],
+    "ci_cd": [
+      {"title": "GitHub Actions Docs", "url": "https://docs.github.com/en/actions", "type": "docs"},
+      {"title": "Atlassian: CI vs. CD vs. Continuous Deployment", "url": "https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment", "type": "article"}
+    ],
+    "nginx": [
+      {"title": "Nginx Beginner's Guide", "url": "https://nginx.org/en/docs/beginners_guide.html", "type": "docs"},
+      {"title": "Nginx Documentation", "url": "https://nginx.org/en/docs/", "type": "docs"}
+    ],
+    "excel": [
+      {"title": "Microsoft Excel Help & Learning", "url": "https://support.microsoft.com/en-us/excel", "type": "docs"},
+      {"title": "Exceljet", "url": "https://exceljet.net/", "type": "tutorial"}
+    ],
+    "statistics": [
+      {"title": "Khan Academy: Statistics and Probability", "url": "https://www.khanacademy.org/math/statistics-probability", "type": "course"},
+      {"title": "OpenIntro Statistics (free textbook)", "url": "https://www.openintro.org/book/os/", "type": "book"}
+    ],
+    "probability": [
+      {"title": "Khan Academy: Probability", "url": "https://www.khanacademy.org/math/statistics-probability/probability-library", "type": "course"},
+      {"title": "Harvard Stat 110: Probability", "url": "https://projects.iq.harvard.edu/stat110/home", "type": "course"}
+    ],
+    "linear_algebra": [
+      {"title": "3Blue1Brown: Essence of Linear Algebra", "url": "https://www.3blue1brown.com/topics/linear-algebra", "type": "video"},
+      {"title": "Khan Academy: Linear Algebra", "url": "https://www.khanacademy.org/math/linear-algebra", "type": "course"},
+      {"title": "MIT 18.06 Linear Algebra (Gilbert Strang)", "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/", "type": "course"}
+    ],
+    "calculus": [
+      {"title": "3Blue1Brown: Essence of Calculus", "url": "https://www.3blue1brown.com/topics/calculus", "type": "video"},
+      {"title": "Khan Academy: Calculus 1", "url": "https://www.khanacademy.org/math/calculus-1", "type": "course"}
+    ],
+    "numpy": [
+      {"title": "NumPy: The Absolute Basics for Beginners", "url": "https://numpy.org/doc/stable/user/absolute_beginners.html", "type": "docs"},
+      {"title": "NumPy Learn", "url": "https://numpy.org/learn/", "type": "tutorial"}
+    ],
+    "pandas": [
+      {"title": "Pandas: Getting Started Tutorials", "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/", "type": "docs"},
+      {"title": "Kaggle Learn: Pandas", "url": "https://www.kaggle.com/learn/pandas", "type": "course"}
+    ],
+    "data_cleaning": [
+      {"title": "Kaggle Learn: Data Cleaning", "url": "https://www.kaggle.com/learn/data-cleaning", "type": "course"},
+      {"title": "Pandas: Working with Missing Data", "url": "https://pandas.pydata.org/docs/user_guide/missing_data.html", "type": "docs"}
+    ],
+    "data_visualization": [
+      {"title": "Kaggle Learn: Data Visualization", "url": "https://www.kaggle.com/learn/data-visualization", "type": "course"},
+      {"title": "Matplotlib Tutorials", "url": "https://matplotlib.org/stable/tutorials/index.html", "type": "docs"},
+      {"title": "Seaborn Tutorial", "url": "https://seaborn.pydata.org/tutorial.html", "type": "docs"}
+    ],
+    "bi_tools": [
+      {"title": "Microsoft Learn: Power BI Training", "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi", "type": "course"},
+      {"title": "Tableau Free Training Videos", "url": "https://www.tableau.com/learn/training", "type": "video"}
+    ],
+    "ab_testing": [
+      {"title": "Udacity: A/B Testing by Google (free)", "url": "https://www.udacity.com/course/ab-testing--ud257", "type": "course"},
+      {"title": "Optimizely: What is A/B Testing?", "url": "https://www.optimizely.com/optimization-glossary/ab-testing/", "type": "article"}
+    ],
+    "dashboards": [
+      {"title": "Power BI: Introduction to Dashboards", "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards", "type": "docs"},
+      {"title": "Tableau: Create a Dashboard", "url": "https://help.tableau.com/current/pro/desktop/en-us/dashboards_create.htm", "type": "docs"}
+    ],
+    "data_storytelling": [
+      {"title": "Storytelling with Data Blog", "url": "https://www.storytellingwithdata.com/blog", "type": "article"},
+      {"title": "The Data Visualisation Catalogue", "url": "https://datavizcatalogue.com/", "type": "article"}
+    ],
+    "machine_learning": [
+      {"title": "Google Machine Learning Crash Course", "url": "https://developers.google.com/machine-learning/crash-course", "type": "course"},
+      {"title": "Kaggle Learn: Intro to Machine Learning", "url": "https://www.kaggle.com/learn/intro-to-machine-learning", "type": "course"}
+    ],
+    "scikit_learn": [
+      {"title": "Scikit-learn: Getting Started", "url": "https://scikit-learn.org/stable/getting_started.html", "type": "docs"},
+      {"title": "Scikit-learn User Guide", "url": "https://scikit-learn.org/stable/user_guide.html", "type": "docs"}
+    ],
+    "feature_engineering": [
+      {"title": "Kaggle Learn: Feature Engineering", "url": "https://www.kaggle.com/learn/feature-engineering", "type": "course"},
+      {"title": "Scikit-learn: Preprocessing Data", "url": "https://scikit-learn.org/stable/modules/preprocessing.html", "type": "docs"}
+    ],
+    "model_evaluation": [
+      {"title": "Scikit-learn: Model Evaluation", "url": "https://scikit-learn.org/stable/modules/model_evaluation.html", "type": "docs"},
+      {"title": "Google ML Crash Course: Classification", "url": "https://developers.google.com/machine-learning/crash-course/classification", "type": "course"}
+    ],
+    "deep_learning": [
+      {"title": "fast.ai: Practical Deep Learning for Coders", "url": "https://course.fast.ai/", "type": "course"},
+      {"title": "3Blue1Brown: Neural Networks", "url": "https://www.3blue1brown.com/topics/neural-networks", "type": "video"},
+      {"title": "Deep Learning Book (Goodfellow et al.)", "url": "https://www.deeplearningbook.org/", "type": "book"}
+    ],
+    "pytorch": [
+      {"title": "PyTorch: Learn the Basics", "url": "https://pytorch.org/tutorials/beginner/basics/intro.html", "type": "tutorial"},
+      {"title": "PyTorch Tutorials", "url": "https://pytorch.org/tutorials/", "type": "docs"}
+    ],
+    "mlops": [
+      {"title": "Made With ML", "url": "https://madewithml.com/", "type": "course"},
+      {"title": "MLOps Zoomcamp (DataTalks.Club)", "url": "https://github.com/DataTalksClub/mlops-zoomcamp", "type": "course"}
+    ],
+    "model_serving": [
+      {"title": "FastAPI Docs", "url": "https://fastapi.tiangolo.com/", "type": "docs"},
+      {"title": "Hugging Face Spaces", "url": "https://huggingface.co/docs/hub/spaces", "type": "docs"}
+    ],
+    "ml_monitoring": [
+      {"title": "Evidently AI Docs", "url": "https://docs.evidentlyai.com/", "type": "docs"},
+      {"title": "Made With ML: Monitoring", "url": "https://madewithml.com/courses/mlops/monitoring/", "type": "article"}
+    ],
+    "nlp": [
+      {"title": "Hugging Face LLM Course", "url": "https://huggingface.co/learn/llm-course", "type": "course"},
+      {"title": "Speech and Language Processing (Jurafsky & Martin)", "url": "https://web.stanford.edu/~jurafsky/slp3/", "type": "book"}
+    ],
+    "transformers": [
+      {"title": "The Illustrated Transformer", "url": "https://jalammar.github.io/illustrated-transformer/", "type": "article"},
+      {"title": "Hugging Face Transformers Docs", "url": "https://huggingface.co/docs/transformers/index", "type": "docs"}
+    ],
+    "prompt_engineering": [
+      {"title": "Claude Docs: Prompt Engineering Overview", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview", "type": "docs"},
+      {"title": "Prompt Engineering Guide", "url": "https://www.promptingguide.ai/", "type": "article"}
+    ],
+    "llm_apis": [
+      {"title": "Claude API: Overview", "url": "https://platform.claude.com/docs/en/api/overview", "type": "docs"},
+      {"title": "Claude Cookbooks", "url": "https://github.com/anthropics/anthropic-cookbook", "type": "tutorial"}
+    ],
+    "embeddings": [
+      {"title": "Hugging Face: Getting Started with Embeddings", "url": "https://huggingface.co/blog/getting-started-with-embeddings", "type": "article"},
+      {"title": "Sentence Transformers Docs", "url": "https://www.sbert.net/", "type": "docs"}
+    ],
+    "vector_databases": [
+      {"title": "Pinecone: What is a Vector Database?", "url": "https://www.pinecone.io/learn/vector-database/", "type": "article"},
+      {"title": "MongoDB Atlas Vector Search", "url": "https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-overview/", "type": "docs"}
+    ],
+    "rag": [
+      {"title": "Pinecone: Retrieval-Augmented Generation", "url": "https://www.pinecone.io/learn/retrieval-augmented-generation/", "type": "article"},
+      {"title": "Anthropic: Introducing Contextual Retrieval", "url": "https://www.anthropic.com/news/contextual-retrieval", "type": "article"}
+    ],
+    "ai_agents": [
+      {"title": "Anthropic: Building Effective Agents", "url": "https://www.anthropic.com/engineering/building-effective-agents", "type": "article"},
+      {"title": "Hugging Face Agents Course", "url": "https://huggingface.co/learn/agents-course", "type": "course"}
+    ],
+    "mcp": [
+      {"title": "Model Context Protocol Docs", "url": "https://modelcontextprotocol.io/", "type": "docs"},
+      {"title": "MCP on GitHub", "url": "https://github.com/modelcontextprotocol", "type": "docs"}
+    ],
+    "fine_tuning": [
+      {"title": "Hugging Face: Fine-tune a Pretrained Model", "url": "https://huggingface.co/docs/transformers/training", "type": "docs"},
+      {"title": "Hugging Face PEFT (LoRA) Docs", "url": "https://huggingface.co/docs/peft/index", "type": "docs"}
+    ],
+    "kubernetes": [
+      {"title": "Kubernetes Basics Tutorial", "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/", "type": "tutorial"},
+      {"title": "Kubernetes Concepts", "url": "https://kubernetes.io/docs/concepts/", "type": "docs"}
+    ],
+    "observability": [
+      {"title": "Prometheus: Overview", "url": "https://prometheus.io/docs/introduction/overview/", "type": "docs"},
+      {"title": "Grafana: Getting Started", "url": "https://grafana.com/docs/grafana/latest/getting-started/", "type": "docs"}
+    ],
+    "terraform": [
+      {"title": "Terraform Tutorials (HashiCorp)", "url": "https://developer.hashicorp.com/terraform/tutorials", "type": "tutorial"},
+      {"title": "Terraform Docs", "url": "https://developer.hashicorp.com/terraform/docs", "type": "docs"}
+    ],
+    "cloud_fundamentals": [
+      {"title": "AWS: What is Cloud Computing?", "url": "https://aws.amazon.com/what-is-cloud-computing/", "type": "article"},
+      {"title": "AWS Skill Builder (free courses)", "url": "https://skillbuilder.aws/", "type": "course"}
+    ],
+    "aws_core": [
+      {"title": "Amazon EC2 Docs", "url": "https://docs.aws.amazon.com/ec2/", "type": "docs"},
+      {"title": "Amazon S3 Docs", "url": "https://docs.aws.amazon.com/s3/", "type": "docs"},
+      {"title": "AWS IAM Docs", "url": "https://docs.aws.amazon.com/iam/", "type": "docs"}
+    ],
+    "vpc_networking": [
+      {"title": "What is Amazon VPC?", "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html", "type": "docs"},
+      {"title": "Cloudflare: What is a Virtual Private Cloud?", "url": "https://www.cloudflare.com/learning/cloud/what-is-a-virtual-private-cloud/", "type": "article"}
+    ],
+    "cloud_databases": [
+      {"title": "Amazon RDS Docs", "url": "https://docs.aws.amazon.com/rds/", "type": "docs"},
+      {"title": "Amazon DynamoDB Docs", "url": "https://docs.aws.amazon.com/dynamodb/", "type": "docs"}
+    ],
+    "serverless": [
+      {"title": "What is AWS Lambda?", "url": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html", "type": "docs"},
+      {"title": "Serverless Framework Docs", "url": "https://www.serverless.com/framework/docs", "type": "docs"}
+    ],
+    "cloud_security": [
+      {"title": "AWS Well-Architected: Security Pillar", "url": "https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html", "type": "docs"},
+      {"title": "AWS Security Learning", "url": "https://aws.amazon.com/security/security-learning/", "type": "course"}
+    ],
+    "cost_optimization": [
+      {"title": "AWS Well-Architected: Cost Optimization Pillar", "url": "https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html", "type": "docs"},
+      {"title": "AWS Cloud Financial Management", "url": "https://aws.amazon.com/aws-cost-management/", "type": "article"}
+    ],
+    "cloud_certification": [
+      {"title": "AWS Certified Cloud Practitioner", "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/", "type": "article"},
+      {"title": "AWS Certified Solutions Architect - Associate", "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/", "type": "article"}
+    ],
+    "security_fundamentals": [
+      {"title": "TryHackMe (beginner paths)", "url": "https://tryhackme.com/", "type": "practice"},
+      {"title": "Google Cybersecurity Certificate (audit free)", "url": "https://www.coursera.org/professional-certificates/google-cybersecurity", "type": "course"}
+    ],
+    "cryptography": [
+      {"title": "Khan Academy: Cryptography", "url": "https://www.khanacademy.org/computing/computer-science/cryptography", "type": "course"},
+      {"title": "Cryptopals Crypto Challenges", "url": "https://cryptopals.com/", "type": "practice"}
+    ],
+    "web_security": [
+      {"title": "PortSwigger Web Security Academy", "url": "https://portswigger.net/web-security", "type": "course"},
+      {"title": "OWASP Top 10", "url": "https://owasp.org/www-project-top-ten/", "type": "docs"}
+    ],
+    "network_analysis": [
+      {"title": "Wireshark User's Guide", "url": "https://www.wireshark.org/docs/wsug_html_chunked/", "type": "docs"},
+      {"title": "Wireshark Documentation", "url": "https://www.wireshark.org/docs/", "type": "docs"}
+    ],
+    "ethical_hacking": [
+      {"title": "TryHackMe", "url": "https://tryhackme.com/", "type": "practice"},
+      {"title": "OverTheWire Wargames", "url": "https://overthewire.org/wargames/", "type": "practice"}
+    ],
+    "penetration_testing": [
+      {"title": "PortSwigger: All Labs", "url": "https://portswigger.net/web-security/all-labs", "type": "practice"},
+      {"title": "Hack The Box", "url": "https://www.hackthebox.com/", "type": "practice"}
+    ],
+    "siem": [
+      {"title": "Elastic: What is SIEM?", "url": "https://www.elastic.co/what-is/siem", "type": "article"},
+      {"title": "Splunk Free Training", "url": "https://www.splunk.com/en_us/training/free-courses/overview.html", "type": "course"}
+    ],
+    "incident_response": [
+      {"title": "NIST SP 800-61: Incident Response", "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final", "type": "docs"},
+      {"title": "CISA: Incident and Vulnerability Response Playbooks", "url": "https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks", "type": "docs"}
+    ],
+    "security_certification": [
+      {"title": "CompTIA Security+", "url": "https://www.comptia.org/certifications/security", "type": "article"},
+      {"title": "EC-Council: Certified Ethical Hacker", "url": "https://www.eccouncil.org/train-certify/certified-ethical-hacker-ceh/", "type": "article"}
+    ],
+    "dart": [
+      {"title": "Dart Language Tour", "url": "https://dart.dev/language", "type": "docs"},
+      {"title": "Dart Tutorials", "url": "https://dart.dev/tutorials", "type": "tutorial"}
+    ],
+    "flutter": [
+      {"title": "Flutter: Your First App (Codelab)", "url": "https://docs.flutter.dev/get-started/codelab", "type": "tutorial"},
+      {"title": "Flutter Docs", "url": "https://docs.flutter.dev/", "type": "docs"}
+    ],
+    "react_native": [
+      {"title": "React Native: Getting Started", "url": "https://reactnative.dev/docs/getting-started", "type": "docs"},
+      {"title": "Expo Docs", "url": "https://docs.expo.dev/", "type": "docs"}
+    ],
+    "mobile_ui": [
+      {"title": "Flutter: Layouts", "url": "https://docs.flutter.dev/ui/layout", "type": "docs"},
+      {"title": "Material Design 3", "url": "https://m3.material.io/", "type": "docs"}
+    ],
+    "mobile_navigation": [
+      {"title": "Flutter: Navigation and Routing", "url": "https://docs.flutter.dev/ui/navigation", "type": "docs"},
+      {"title": "go_router Package", "url": "https://pub.dev/packages/go_router", "type": "docs"}
+    ],
+    "mobile_state_management": [
+      {"title": "Flutter: State Management", "url": "https://docs.flutter.dev/data-and-backend/state-mgmt/intro", "type": "docs"},
+      {"title": "Riverpod Docs", "url": "https://riverpod.dev/", "type": "docs"}
+    ],
+    "local_storage": [
+      {"title": "Flutter: Persist Data with SQLite", "url": "https://docs.flutter.dev/cookbook/persistence/sqlite", "type": "tutorial"},
+      {"title": "Flutter: Store Key-Value Data", "url": "https://docs.flutter.dev/cookbook/persistence/key-value", "type": "tutorial"}
+    ],
+    "firebase": [
+      {"title": "Firebase Docs", "url": "https://firebase.google.com/docs", "type": "docs"},
+      {"title": "Add Firebase to Your Flutter App", "url": "https://firebase.google.com/docs/flutter/setup", "type": "tutorial"}
+    ],
+    "push_notifications": [
+      {"title": "Firebase Cloud Messaging", "url": "https://firebase.google.com/docs/cloud-messaging", "type": "docs"},
+      {"title": "Apple: User Notifications", "url": "https://developer.apple.com/documentation/usernotifications", "type": "docs"}
+    ],
+    "app_store_deployment": [
+      {"title": "Flutter: Build and Release an Android App", "url": "https://docs.flutter.dev/deployment/android", "type": "docs"},
+      {"title": "Flutter: Build and Release an iOS App", "url": "https://docs.flutter.dev/deployment/ios", "type": "docs"}
+    ],
+    "design_principles": [
+      {"title": "Laws of UX", "url": "https://lawsofux.com/", "type": "article"},
+      {"title": "IxDF: Design Principles", "url": "https://www.interaction-design.org/literature/topics/design-principles", "type": "article"}
+    ],
+    "color_theory": [
+      {"title": "IxDF: Color Theory", "url": "https://www.interaction-design.org/literature/topics/color-theory", "type": "article"},
+      {"title": "Material Design: Color System", "url": "https://m3.material.io/styles/color/system/overview", "type": "docs"}
+    ],
+    "typography": [
+      {"title": "Butterick's Practical Typography", "url": "https://practicaltypography.com/", "type": "book"},
+      {"title": "Material Design: Typography", "url": "https://m3.material.io/styles/typography/overview", "type": "docs"}
+    ],
+    "figma": [
+      {"title": "Figma Help Center", "url": "https://help.figma.com/", "type": "docs"},
+      {"title": "Figma Resource Library", "url": "https://www.figma.com/resource-library/", "type": "tutorial"}
+    ],
+    "wireframing": [
+      {"title": "IxDF: Wireframing", "url": "https://www.interaction-design.org/literature/topics/wireframing", "type": "article"},
+      {"title": "Balsamiq: Learn Wireframing", "url": "https://balsamiq.com/learn/", "type": "tutorial"}
+    ],
+    "prototyping": [
+      {"title": "IxDF: Prototyping", "url": "https://www.interaction-design.org/literature/topics/prototyping", "type": "article"},
+      {"title": "Figma Help Center", "url": "https://help.figma.com/", "type": "docs"}
+    ],
+    "design_systems": [
+      {"title": "Material Design 3", "url": "https://m3.material.io/", "type": "docs"},
+      {"title": "Design Systems Repo", "url": "https://designsystemsrepo.com/", "type": "article"}
+    ],
+    "user_research": [
+      {"title": "NN/g: When to Use Which UX Research Methods", "url": "https://www.nngroup.com/articles/which-ux-research-methods/", "type": "article"},
+      {"title": "IxDF: User Research", "url": "https://www.interaction-design.org/literature/topics/user-research", "type": "article"}
+    ],
+    "usability_testing": [
+      {"title": "NN/g: Usability Testing 101", "url": "https://www.nngroup.com/articles/usability-testing-101/", "type": "article"},
+      {"title": "IxDF: Usability Testing", "url": "https://www.interaction-design.org/literature/topics/usability-testing", "type": "article"}
+    ],
+    "accessibility": [
+      {"title": "W3C: Accessibility Fundamentals", "url": "https://www.w3.org/WAI/fundamentals/", "type": "docs"},
+      {"title": "MDN: Accessibility", "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility", "type": "docs"}
+    ],
+    "design_portfolio": [
+      {"title": "Behance (portfolio inspiration)", "url": "https://www.behance.net/", "type": "practice"},
+      {"title": "Dribbble (portfolio inspiration)", "url": "https://dribbble.com/", "type": "practice"}
+    ],
+    "csharp": [
+      {"title": "Microsoft: C# Documentation", "url": "https://learn.microsoft.com/en-us/dotnet/csharp/", "type": "docs"},
+      {"title": "A Tour of C#", "url": "https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/", "type": "tutorial"}
+    ],
+    "cpp": [
+      {"title": "LearnCpp.com", "url": "https://www.learncpp.com/", "type": "tutorial"},
+      {"title": "cppreference.com", "url": "https://en.cppreference.com/", "type": "docs"}
+    ],
+    "game_math": [
+      {"title": "3D Math Primer for Graphics and Game Development (free)", "url": "https://gamemath.com/", "type": "book"},
+      {"title": "Khan Academy: Trigonometry", "url": "https://www.khanacademy.org/math/trigonometry", "type": "course"}
+    ],
+    "unity": [
+      {"title": "Unity Learn", "url": "https://learn.unity.com/", "type": "course"},
+      {"title": "Unity Manual", "url": "https://docs.unity3d.com/Manual/index.html", "type": "docs"}
+    ],
+    "unreal": [
+      {"title": "Unreal Engine Learning", "url": "https://dev.epicgames.com/community/unreal-engine/learning", "type": "course"},
+      {"title": "Unreal Engine Documentation", "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine", "type": "docs"}
+    ],
+    "game_physics": [
+      {"title": "Unity Manual: Physics", "url": "https://docs.unity3d.com/Manual/PhysicsSection.html", "type": "docs"},
+      {"title": "Gaffer On Games: Game Physics", "url": "https://gafferongames.com/categories/game-physics/", "type": "article"}
+    ],
+    "game_2d": [
+      {"title": "Unity Manual: 2D Game Development", "url": "https://docs.unity3d.com/Manual/Unity2D.html", "type": "docs"},
+      {"title": "Kenney: Free Game Assets", "url": "https://kenney.nl/assets", "type": "practice"}
+    ],
+    "game_design": [
+      {"title": "Game Developer: Design Articles", "url": "https://www.gamedeveloper.com/design", "type": "article"},
+      {"title": "Game Design Concepts (free course)", "url": "https://gamedesignconcepts.wordpress.com/", "type": "course"}
+    ],
+    "game_3d": [
+      {"title": "Unity Learn: Junior Programmer Pathway", "url": "https://learn.unity.com/pathway/junior-programmer", "type": "course"},
+      {"title": "Blender Tutorials", "url": "https://www.blender.org/support/tutorials/", "type": "video"}
+    ],
+    "shaders": [
+      {"title": "The Book of Shaders", "url": "https://thebookofshaders.com/", "type": "book"},
+      {"title": "LearnOpenGL", "url": "https://learnopengl.com/", "type": "tutorial"}
+    ],
+    "game_ai": [
+      {"title": "Red Blob Games: Introduction to A*", "url": "https://www.redblobgames.com/pathfinding/a-star/introduction.html", "type": "article"},
+      {"title": "Game AI Pro (free chapters)", "url": "https://www.gameaipro.com/", "type": "book"}
+    ],
+    "game_optimization": [
+      {"title": "Unity Manual: Profiler", "url": "https://docs.unity3d.com/Manual/Profiler.html", "type": "docs"},
+      {"title": "Unity Manual: Graphics Performance", "url": "https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html", "type": "docs"}
+    ],
+    "game_publishing": [
+      {"title": "itch.io: Creator Getting Started", "url": "https://itch.io/docs/creators/getting-started", "type": "docs"},
+      {"title": "Steamworks: Getting Started", "url": "https://partner.steamgames.com/doc/gettingstarted", "type": "docs"}
+    ],
+    "blockchain_concepts": [
+      {"title": "Bitcoin Whitepaper", "url": "https://bitcoin.org/bitcoin.pdf", "type": "article"},
+      {"title": "Princeton: Bitcoin and Cryptocurrency Technologies", "url": "https://www.coursera.org/learn/cryptocurrency", "type": "course"}
+    ],
+    "ethereum": [
+      {"title": "Ethereum: Intro to Ethereum", "url": "https://ethereum.org/en/developers/docs/intro-to-ethereum/", "type": "docs"},
+      {"title": "Ethereum Developer Docs", "url": "https://ethereum.org/en/developers/docs/", "type": "docs"}
+    ],
+    "solidity": [
+      {"title": "Solidity Docs", "url": "https://docs.soliditylang.org/", "type": "docs"},
+      {"title": "CryptoZombies", "url": "https://cryptozombies.io/", "type": "practice"}
+    ],
+    "smart_contracts": [
+      {"title": "Ethereum: Smart Contracts", "url": "https://ethereum.org/en/developers/docs/smart-contracts/", "type": "docs"},
+      {"title": "OpenZeppelin Contracts", "url": "https://docs.openzeppelin.com/contracts/", "type": "docs"}
+    ],
+    "hardhat": [
+      {"title": "Hardhat Docs", "url": "https://hardhat.org/docs", "type": "docs"},
+      {"title": "Hardhat Tutorial", "url": "https://hardhat.org/tutorial", "type": "tutorial"}
+    ],
+    "web3_libraries": [
+      {"title": "Ethers.js Docs", "url": "https://docs.ethers.org/", "type": "docs"},
+      {"title": "Web3.js Docs", "url": "https://docs.web3js.org/", "type": "docs"}
+    ],
+    "dapps": [
+      {"title": "Ethereum: Decentralized Applications", "url": "https://ethereum.org/en/developers/docs/dapps/", "type": "docs"},
+      {"title": "Speedrun Ethereum", "url": "https://speedrunethereum.com/", "type": "practice"}
+    ],
+    "smart_contract_security": [
+      {"title": "Ethernaut (OpenZeppelin)", "url": "https://ethernaut.openzeppelin.com/", "type": "practice"},
+      {"title": "Smart Contract Security Best Practices", "url": "https://consensys.github.io/smart-contract-best-practices/", "type": "docs"}
+    ],
+    "defi": [
+      {"title": "Ethereum: Decentralized Finance (DeFi)", "url": "https://ethereum.org/en/defi/", "type": "article"},
+      {"title": "Uniswap Docs", "url": "https://docs.uniswap.org/", "type": "docs"}
+    ],
+    "testing_fundamentals": [
+      {"title": "Atlassian: Types of Software Testing", "url": "https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing", "type": "article"},
+      {"title": "Ministry of Testing", "url": "https://www.ministryoftesting.com/", "type": "article"}
+    ],
+    "manual_testing": [
+      {"title": "Ministry of Testing", "url": "https://www.ministryoftesting.com/", "type": "article"},
+      {"title": "Atlassian: Exploratory Testing", "url": "https://www.atlassian.com/continuous-delivery/software-testing/exploratory-testing", "type": "article"}
+    ],
+    "bug_reporting": [
+      {"title": "Mozilla: Bug Writing Guidelines", "url": "https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html", "type": "docs"},
+      {"title": "GitHub Docs: About Issues", "url": "https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues", "type": "docs"}
+    ],
+    "test_automation": [
+      {"title": "Playwright Docs", "url": "https://playwright.dev/docs/intro", "type": "docs"},
+      {"title": "Selenium Documentation", "url": "https://www.selenium.dev/documentation/", "type": "docs"}
+    ],
+    "api_testing": [
+      {"title": "Postman Learning Center", "url": "https://learning.postman.com/docs/introduction/overview/", "type": "docs"},
+      {"title": "Postman: API Testing", "url": "https://www.postman.com/api-platform/api-testing/", "type": "article"}
+    ],
+    "automation_frameworks": [
+      {"title": "pytest Documentation", "url": "https://docs.pytest.org/", "type": "docs"},
+      {"title": "Playwright for Python", "url": "https://playwright.dev/python/docs/intro", "type": "docs"}
+    ],
+    "performance_testing": [
+      {"title": "Grafana k6 Docs", "url": "https://grafana.com/docs/k6/latest/", "type": "docs"},
+      {"title": "Apache JMeter: Getting Started", "url": "https://jmeter.apache.org/usermanual/get-started.html", "type": "docs"}
+    ]
+  }
+}

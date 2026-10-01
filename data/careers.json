@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "careers": [
+    {
+      "id": "frontend_developer",
+      "name": "Frontend Developer",
+      "category": "Software Development",
+      "description": "Builds the visual, interactive parts of websites and web apps that users see and click.",
+      "interests": ["web", "ui", "design", "creative", "visual"],
+      "demand": "high",
+      "salary_inr_lpa": [4, 15],
+      "stages": {
+        "beginner": ["html", "css", "javascript", "git"],
+        "intermediate": ["responsive_design", "dom", "http", "web_apis", "react", "tailwind"],
+        "advanced": ["typescript", "state_management", "frontend_testing", "nextjs", "web_performance", "deployment"]
+      },
+      "optional_skills": ["accessibility", "figma"],
+      "aliases": ["frontend developer", "front end developer", "front-end developer", "frontend engineer", "frontend"]
+    },
+    {
+      "id": "backend_developer",
+      "name": "Backend Developer",
+      "category": "Software Development",
+      "description": "Builds the server-side logic, APIs and databases that power applications behind the scenes.",
+      "interests": ["servers", "apis", "databases", "logic", "systems"],
+      "demand": "high",
+      "salary_inr_lpa": [5, 18],
+      "stages": {
+        "beginner": ["python", "git", "command_line", "http"],
+        "intermediate": ["sql", "rest_apis", "authentication", "mongodb"],
+        "advanced": ["redis", "docker", "backend_testing", "system_design", "ci_cd", "deployment"]
+      },
+      "optional_skills": ["nodejs", "linux"],
+      "aliases": ["backend developer", "back end developer", "back-end developer", "backend engineer", "server side developer", "api developer"]
+    },
+    {
+      "id": "full_stack_developer",
+      "name": "Full Stack Developer",
+      "category": "Software Development",
+      "description": "Builds complete web applications end to end, from the user interface to the server and database.",
+      "interests": ["web", "apps", "startups", "building", "products"],
+      "demand": "high",
+      "salary_inr_lpa": [5, 20],
+      "stages": {
+        "beginner": ["html", "css", "javascript", "git", "command_line"],
+        "intermediate": ["dom", "react", "http", "nodejs", "rest_apis", "sql", "mongodb", "authentication"],
+        "advanced": ["typescript", "docker", "ci_cd", "deployment", "system_design"]
+      },
+      "optional_skills": ["python", "tailwind"],
+      "aliases": ["full stack developer", "fullstack developer", "full-stack developer", "full stack engineer", "web developer", "mern stack developer", "software engineer"]
+    },
+    {
+      "id": "data_analyst",
+      "name": "Data Analyst",
+      "category": "Data & AI",
+      "description": "Turns raw business data into reports, dashboards and insights that guide decisions.",
+      "interests": ["data", "numbers", "business", "analytics", "reports"],
+      "demand": "high",
+      "salary_inr_lpa": [4, 12],
+      "stages": {
+        "beginner": ["excel", "statistics", "sql"],
+        "intermediate": ["python", "pandas", "data_cleaning", "data_visualization"],
+        "advanced": ["bi_tools", "ab_testing", "dashboards", "data_storytelling"]
+      },
+      "optional_skills": ["probability"],
+      "aliases": ["data analyst", "business analyst", "bi analyst", "business intelligence analyst", "analyst"]
+    },
+    {
+      "id": "data_scientist",
+      "name": "Data Scientist",
+      "category": "Data & AI",
+      "description": "Uses statistics and machine learning to find patterns in data and build predictive models.",
+      "interests": ["data", "math", "research", "statistics", "predictions"],
+      "demand": "high",
+      "salary_inr_lpa": [7, 25],
+      "stages": {
+        "beginner": ["python", "linear_algebra", "probability", "statistics"],
+        "intermediate": ["numpy", "pandas", "data_cleaning", "data_visualization", "sql", "machine_learning", "scikit_learn"],
+        "advanced": ["feature_engineering", "model_evaluation", "deep_learning", "model_serving"]
+      },
+      "optional_skills": ["git", "ab_testing", "pytorch"],
+      "aliases": ["data scientist", "data science"]
+    },
+    {
+      "id": "ml_engineer",
+      "name": "ML Engineer",
+      "category": "Data & AI",
+      "description": "Builds, trains and deploys machine learning models into reliable production systems.",
+      "interests": ["ai", "math", "models", "automation", "engineering"],
+      "demand": "high",
+      "salary_inr_lpa": [8, 30],
+      "stages": {
+        "beginner": ["python", "git", "command_line", "linear_algebra", "calculus", "probability", "statistics"],
+        "intermediate": ["numpy", "pandas", "machine_learning", "scikit_learn", "deep_learning", "model_evaluation"],
+        "advanced": ["pytorch", "docker", "mlops", "model_serving", "ml_monitoring"]
+      },
+      "optional_skills": ["feature_engineering", "kubernetes"],
+      "aliases": ["ml engineer", "machine learning engineer", "mlops engineer"]
+    },
+    {
+      "id": "ai_engineer",
+      "name": "AI/LLM Engineer",
+      "category": "Data & AI",
+      "description": "Builds applications powered by large language models, such as chatbots, RAG systems and AI agents.",
+      "interests": ["ai", "chatbots", "llms", "automation", "research"],
+      "demand": "high",
+      "salary_inr_lpa": [10, 35],
+      "stages": {
+        "beginner": ["python", "git", "http", "linear_algebra", "statistics", "prompt_engineering"],
+        "intermediate": ["rest_apis", "numpy", "machine_learning", "deep_learning", "pytorch", "nlp", "transformers", "llm_apis"],
+        "advanced": ["embeddings", "vector_databases", "rag", "ai_agents", "mcp", "fine_tuning"]
+      },
+      "optional_skills": ["docker", "model_serving"],
+      "aliases": ["ai engineer", "llm engineer", "generative ai engineer", "gen ai developer", "ai developer", "prompt engineer"]
+    },
+    {
+      "id": "devops_engineer",
+      "name": "DevOps Engineer",
+      "category": "Infrastructure",
+      "description": "Automates how software is built, tested, deployed and kept running reliably.",
+      "interests": ["automation", "infrastructure", "servers", "reliability", "linux"],
+      "demand": "high",
+      "salary_inr_lpa": [6, 22],
+      "stages": {
+        "beginner": ["command_line", "linux", "networking", "git", "bash"],
+        "intermediate": ["python", "docker", "ci_cd", "nginx"],
+        "advanced": ["kubernetes", "cloud_fundamentals", "aws_core", "terraform", "observability"]
+      },
+      "optional_skills": ["system_design", "cloud_security"],
+      "aliases": ["devops engineer", "devops", "site reliability engineer", "sre", "platform engineer"]
+    },
+    {
+      "id": "cloud_engineer",
+      "name": "Cloud Engineer",
+      "category": "Infrastructure",
+      "description": "Designs, builds and manages applications and infrastructure on cloud platforms like AWS.",
+      "interests": ["cloud", "infrastructure", "servers", "scalability", "networks"],
+      "demand": "high",
+      "salary_inr_lpa": [6, 22],
+      "stages": {
+        "beginner": ["command_line", "linux", "networking", "cloud_fundamentals"],
+        "intermediate": ["aws_core", "vpc_networking", "sql", "cloud_databases"],
+        "advanced": ["serverless", "terraform", "cloud_security", "cost_optimization", "cloud_certification"]
+      },
+      "optional_skills": ["docker", "python", "kubernetes"],
+      "aliases": ["cloud engineer", "cloud architect", "aws engineer", "cloud computing", "solutions architect"]
+    },
+    {
+      "id": "cybersecurity_analyst",
+      "name": "Cybersecurity Analyst",
+      "category": "Security",
+      "description": "Protects systems and networks by finding vulnerabilities, detecting attacks and responding to incidents.",
+      "interests": ["security", "hacking", "privacy", "networks", "investigation"],
+      "demand": "high",
+      "salary_inr_lpa": [5, 20],
+      "stages": {
+        "beginner": ["networking", "command_line", "linux", "http", "security_fundamentals"],
+        "intermediate": ["cryptography", "web_security", "python", "network_analysis"],
+        "advanced": ["ethical_hacking", "penetration_testing", "siem", "incident_response", "security_certification"]
+      },
+      "optional_skills": ["bash", "cloud_security"],
+      "aliases": ["cybersecurity analyst", "security analyst", "ethical hacker", "penetration tester", "soc analyst", "cyber security"]
+    },
+    {
+      "id": "mobile_developer",
+      "name": "Mobile App Developer",
+      "category": "Software Development",
+      "description": "Builds apps for Android and iOS phones, from the user interface to publishing on app stores.",
+      "interests": ["mobile", "apps", "android", "ios", "ui"],
+      "demand": "high",
+      "salary_inr_lpa": [4, 16],
+      "stages": {
+        "beginner": ["programming_basics", "dart", "git"],
+        "intermediate": ["flutter", "mobile_ui", "mobile_navigation", "http", "rest_apis"],
+        "advanced": ["mobile_state_management", "local_storage", "firebase", "push_notifications", "app_store_deployment"]
+      },
+      "optional_skills": ["react_native", "figma"],
+      "aliases": ["mobile developer", "mobile app developer", "app developer", "android developer", "ios developer", "flutter developer"]
+    },
+    {
+      "id": "ui_ux_designer",
+      "name": "UI/UX Designer",
+      "category": "Design",
+      "description": "Designs how apps and websites look and feel, based on research into what users need.",
+      "interests": ["design", "creative", "visual", "users", "psychology"],
+      "demand": "medium",
+      "salary_inr_lpa": [4, 15],
+      "stages": {
+        "beginner": ["design_principles", "color_theory", "typography"],
+        "intermediate": ["figma", "wireframing", "prototyping", "design_systems"],
+        "advanced": ["user_research", "usability_testing", "accessibility", "design_portfolio"]
+      },
+      "optional_skills": ["html", "css"],
+      "aliases": ["ui/ux designer", "ui ux designer", "ux designer", "ui designer", "product designer", "web designer"]
+    },
+    {
+      "id": "game_developer",
+      "name": "Game Developer",
+      "category": "Software Development",
+      "description": "Creates video games, programming gameplay, physics, graphics and AI in engines like Unity.",
+      "interests": ["games", "graphics", "creative", "storytelling", "3d"],
+      "demand": "medium",
+      "salary_inr_lpa": [3, 12],
+      "stages": {
+        "beginner": ["programming_basics", "csharp", "game_math"],
+        "intermediate": ["unity", "game_physics", "game_2d", "game_design"],
+        "advanced": ["game_3d", "shaders", "game_ai", "game_optimization", "game_publishing"]
+      },
+      "optional_skills": ["cpp", "unreal", "git"],
+      "aliases": ["game developer", "game designer", "game programmer", "unity developer", "game dev"]
+    },
+    {
+      "id": "blockchain_developer",
+      "name": "Blockchain Developer",
+      "category": "Software Development",
+      "description": "Builds smart contracts and decentralized applications on blockchains like Ethereum.",
+      "interests": ["blockchain", "crypto", "finance", "web3", "decentralization"],
+      "demand": "medium",
+      "salary_inr_lpa": [6, 25],
+      "stages": {
+        "beginner": ["javascript", "cryptography", "blockchain_concepts"],
+        "intermediate": ["ethereum", "solidity", "smart_contracts", "hardhat"],
+        "advanced": ["web3_libraries", "dapps", "smart_contract_security", "defi"]
+      },
+      "optional_skills": ["react", "nodejs", "git"],
+      "aliases": ["blockchain developer", "web3 developer", "smart contract developer", "solidity developer", "crypto developer"]
+    },
+    {
+      "id": "qa_engineer",
+      "name": "QA/Test Engineer",
+      "category": "Software Development",
+      "description": "Makes sure software works correctly by designing tests, finding bugs and automating checks.",
+      "interests": ["quality", "testing", "detail", "bugs", "automation"],
+      "demand": "medium",
+      "salary_inr_lpa": [3, 12],
+      "stages": {
+        "beginner": ["testing_fundamentals", "manual_testing", "bug_reporting"],
+        "intermediate": ["python", "http", "git", "test_automation", "api_testing"],
+        "advanced": ["automation_frameworks", "performance_testing", "ci_cd"]
+      },
+      "optional_skills": ["sql", "javascript"],
+      "aliases": ["qa engineer", "test engineer", "software tester", "qa tester", "automation tester", "sdet", "quality assurance"]
+    }
+  ]
+}
