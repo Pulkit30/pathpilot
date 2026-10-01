@@ -14,7 +14,7 @@ path_pilot/
 ├── data/        Knowledge base: careers, skill graph, resources, synonyms   ← Phase 1 ✅
 ├── ml/          From-scratch NLP + recommendation model                     ← Phase 2 ✅
 ├── backend/     FastAPI app                                                 ← Phase 3 ✅
-├── frontend/    React app                                                   ← Phase 4
+├── frontend/    React app                                                   ← Phase 4 ✅
 └── mcp/         MCP server                                                  ← Phase 8
 ```
 
@@ -25,7 +25,7 @@ path_pilot/
 | 1 | Data & skill graph | ✅ Done |
 | 2 | ML core (NLP, TF-IDF, softmax, roadmap builder) | ✅ Done |
 | 3 | FastAPI backend + MongoDB | ✅ Done |
-| 4 | React frontend | ⏳ |
+| 4 | React frontend | ✅ Done |
 | 5 | Progress tracking & feedback loop | ⏳ |
 | 6 | Deploy to Vercel | ⏳ |
 | 7 | RAG "AI Mentor" chat | ⏳ |
@@ -165,3 +165,39 @@ Open **http://localhost:8000/api/docs** to try every endpoint in the browser.
 ```bash
 .venv/bin/python -m pytest -q            # all 35 tests (ML + API)
 ```
+
+## Frontend (Phase 4)
+
+React app in `frontend/`, built with Vite, styled with Tailwind CSS, with React Router for pages and
+React Flow for the roadmap graph. In development, Vite forwards `/api/*` to FastAPI on port 8000,
+so the browser talks to one origin, the same as production on Vercel.
+
+| Page | URL | What it shows |
+|---|---|---|
+| Ask | `/` | Free-text question box with example prompts |
+| Results | `/results?q=…` | Top careers with match %, reasons, demand and salary; **editable skill chips** ("What I understood") that re-run the model |
+| Roadmap | `/roadmap/:careerId?known=…&hours=…` | Stats, study-hours selector, skipped skills, **graph view** (React Flow) or list view; click a skill for details and free resources |
+| Careers | `/careers` | All 15 careers, filterable by category |
+| Career | `/careers/:careerId` | Staged skills; pick skills you know, then build your roadmap |
+| Log in / Sign up | `/login`, `/register` | Accounts (JWT stored in the browser) |
+
+```
+frontend/src/
+├── api.js          every backend call lives here
+├── auth.jsx        login state shared by all pages
+├── hooks.js        useAsync (loading/error/data), useSkills
+├── constants.js    stage colours, demand colours, salary format
+├── components/     Navbar, CareerCard, SkillPicker, RoadmapGraph, SkillDrawer, ui
+└── pages/          Home, Results, Roadmap, Careers, CareerDetail, AuthPage, NotFound
+```
+
+### Run the whole app
+
+```bash
+# terminal 1: backend
+.venv/bin/uvicorn backend.app.main:app --reload
+# terminal 2: frontend
+cd frontend && npm install && npm run dev
+```
+
+Open **http://localhost:5173**.
