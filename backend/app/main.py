@@ -4,19 +4,23 @@ Run locally:  .venv/bin/uvicorn backend.app.main:app --reload
 Then open:    http://localhost:8000/docs
 """
 
+import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from pymongo.errors import PyMongoError
 
-from backend.app.config import get_settings
-from backend.app.db import close_mongo
+from backend.app.config import Settings, get_settings
+from backend.app.db import close_mongo, database_status, redact
 from backend.app.deps import get_recommender
 from backend.app.routes import auth, catalog, feedback, progress, recommend
 
 API_PREFIX = "/api"  # frontend and API share one domain on Vercel: /api/* goes to FastAPI
 FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"  # built by `npm run build`
+log = logging.getLogger("pathpilot")
 
 
 @asynccontextmanager
@@ -44,10 +48,23 @@ def create_app():
         allow_headers=["*"],
     )
 
+    @app.exception_handler(PyMongoError)
+    async def database_error(request: Request, exc: PyMongoError):
+        # Full details go to the server log (Vercel → Logs); users get a clear, safe message.
+        log.error("Database error on %s %s: %s: %s", request.method, request.url.path,
+                  type(exc).__name__, redact(exc))
+        return JSONResponse(status_code=503,
+                            content={"detail": "Can't reach the database right now. Please try again shortly."})
+
     @app.get(f"{API_PREFIX}/health", tags=["meta"])
-    def health():
+    async def health(settings: Settings = Depends(get_settings)):
         meta = get_recommender()
-        return {"status": "ok", "model": {"careers": len(meta.classes), "alpha": meta.alpha, "trained_at": meta.trained_at}}
+        return {
+            "status": "ok",
+            "model": {"careers": len(meta.classes), "alpha": meta.alpha, "trained_at": meta.trained_at},
+            "database": await database_status(settings),
+            "auth": "configured" if settings.jwt_secret else "JWT_SECRET missing",
+        }
 
     for module in (recommend, catalog, auth, progress, feedback):
         app.include_router(module.router, prefix=API_PREFIX)

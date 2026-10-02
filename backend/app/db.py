@@ -14,6 +14,8 @@ The Mongo client is created lazily and reused, which matters on Vercel: a warm s
 instance keeps the connection instead of reconnecting on every request.
 """
 
+import asyncio
+import re
 import uuid
 from datetime import datetime, timezone
 
@@ -196,21 +198,45 @@ class InMemoryStore(Store):
 
 _client = None
 _store = None
+_loop = None  # the event loop the client was created in
 
 
 def get_mongo_store(settings):
-    """Shared MongoStore, or None when no MONGODB_URI is configured."""
-    global _client, _store
+    """Shared MongoStore, or None when no MONGODB_URI is configured.
+
+    Must be called from async code. An async Mongo client belongs to the event loop it was created
+    in, so if the server ever runs requests in a new loop we create a fresh client for it.
+    """
+    global _client, _store, _loop
     if not settings.mongodb_uri:
         return None
-    if _store is None:
+    loop = asyncio.get_running_loop()
+    if _store is None or _loop is not loop:
         _client = AsyncMongoClient(settings.mongodb_uri, serverSelectionTimeoutMS=5000)
         _store = MongoStore(_client[settings.mongodb_db])
+        _loop = loop
     return _store
 
 
 async def close_mongo():
-    global _client, _store
+    global _client, _store, _loop
     if _client is not None:
         await _client.close()
-    _client = _store = None
+    _client = _store = _loop = None
+
+
+def redact(text):
+    """Hide credentials in connection strings: mongodb+srv://user:pass@host -> mongodb+srv://***@host"""
+    return re.sub(r"//[^/@\s]+@", "//***@", str(text))
+
+
+async def database_status(settings):
+    """'ok', 'not configured', or 'error: <reason>' (credentials redacted). Used by /api/health."""
+    if not settings.mongodb_uri:
+        return "not configured"
+    try:
+        get_mongo_store(settings)
+        await _client.admin.command("ping")
+        return "ok"
+    except Exception as exc:  # report any failure, including connection, auth and DNS problems
+        return f"error: {type(exc).__name__}: {redact(exc)[:300]}"

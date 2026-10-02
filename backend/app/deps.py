@@ -22,7 +22,7 @@ def get_kb():
     return load_kb()
 
 
-def get_store_or_none(settings: Settings = Depends(get_settings)):
+async def get_store_or_none(settings: Settings = Depends(get_settings)):
     """The database, or None if MONGODB_URI / JWT_SECRET aren't configured. Tests override this."""
     if not settings.jwt_secret:
         return None

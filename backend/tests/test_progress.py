@@ -155,3 +155,50 @@ def test_mongo_progress_round_trip():
         app.dependency_overrides.clear()
         MongoClient(MONGO_URI).drop_database("pathpilot_test")
         db_module._client = db_module._store = None
+
+
+# ------------------------------------------------- database diagnostics ----
+
+def test_redact_hides_credentials():
+    from backend.app.db import redact
+    msg = redact("failed to connect mongodb+srv://pathpilot:S3cret@cluster0.abc.mongodb.net/?x=1")
+    assert "S3cret" not in msg and "pathpilot:" not in msg
+    assert "mongodb+srv://***@cluster0.abc.mongodb.net" in msg
+
+
+def test_health_reports_database_not_configured(client):
+    body = client.get("/api/health").json()
+    assert body["database"] == "not configured"
+    assert body["auth"] == "configured"
+
+
+def test_database_errors_become_friendly_503(client, store):
+    from pymongo.errors import ServerSelectionTimeoutError
+
+    async def broken(*args, **kwargs):
+        raise ServerSelectionTimeoutError("mongodb+srv://u:pw@host timed out")
+
+    store.create_user = broken
+    r = client.post("/api/auth/register", json={"email": "a@example.com", "name": "A", "password": "supersecret"})
+    assert r.status_code == 503
+    assert "database" in r.json()["detail"].lower()
+    assert "pw" not in r.text
+
+
+@pytest.mark.skipif(not _mongo_available(), reason="no local MongoDB running")
+def test_health_database_ok_and_bad_uri():
+    good = Settings(_env_file=None, mongodb_uri=MONGO_URI, jwt_secret=SECRET)
+    bad = Settings(_env_file=None, mongodb_uri="mongodb://user:hunter2@localhost:1/?serverSelectionTimeoutMS=500",
+                   jwt_secret=SECRET)
+    try:
+        app.dependency_overrides[get_settings] = lambda: good
+        with TestClient(app) as c:
+            assert c.get("/api/health").json()["database"] == "ok"
+        db_module._client = db_module._store = db_module._loop = None
+        app.dependency_overrides[get_settings] = lambda: bad
+        with TestClient(app) as c:
+            status = c.get("/api/health").json()["database"]
+            assert status.startswith("error:") and "hunter2" not in status
+    finally:
+        app.dependency_overrides.clear()
+        db_module._client = db_module._store = db_module._loop = None
